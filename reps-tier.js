@@ -1,75 +1,145 @@
 // BOMBED.app — Reps Tier Logic
-// Free cap: 3 roasts (text only). Paid: 10 voice roasts + autopsy + clinic.
+// Free cap: 3 text-only roasts (lifetime / localStorage).
+// Paid Reps ($5/mo): 10 voice roasts/month + weekly autopsy + punchline clinic.
+// Tone: Kill Tony / put in the fucking reps.
 
 const FREE_ROAST_CAP = 3;
-const REPS_PRICE = 5; // USD / month
+const REPS_MONTHLY_ROASTS = 10;
+const REPS_PRICE_USD = 5;
 
-// Anonymous roast counter (localStorage). Migrate to account on signup.
-function getRoastCount() {
+// ---------- Free-tier counter (anonymous) ----------
+function getFreeRoastCount() {
   return parseInt(localStorage.getItem('bombed_free_roasts') || '0', 10);
 }
-function incrementRoastCount() {
-  localStorage.setItem('bombed_free_roasts', getRoastCount() + 1);
+
+function incrementFreeRoast() {
+  localStorage.setItem('bombed_free_roasts', String(getFreeRoastCount() + 1));
 }
 
+// ---------- Paid status (replace with real Stripe / JWT claim) ----------
 function isPaidReps(user) {
-  // TODO: check Stripe / account status
-  return user && user.subscription === 'reps';
+  // TODO: check Stripe subscription or account.plan === 'reps'
+  return !!(user && (user.subscription === 'reps' || user.plan === 'reps'));
 }
 
+// ---------- Gate ----------
 function canRoast(user) {
-  if (isPaidReps(user)) return true;
-  if (getRoastCount() >= FREE_ROAST_CAP) {
+  if (isPaidReps(user)) {
+    // TODO: also enforce REPS_MONTHLY_ROASTS via server
+    return true;
+  }
+  if (getFreeRoastCount() >= FREE_ROAST_CAP) {
     showPaywall();
     return false;
   }
   return true;
 }
 
+function afterSuccessfulRoast(user) {
+  if (!isPaidReps(user)) {
+    incrementFreeRoast();
+  }
+  // paid path: server increments monthly usage
+}
+
+// ---------- Paywall modal ----------
 function showPaywall() {
+  if (document.querySelector('.paywall-modal')) return;
+
   const modal = document.createElement('div');
   modal.className = 'paywall-modal';
+  modal.setAttribute('role', 'dialog');
   modal.innerHTML = `
     <div class="paywall-card">
       <h2>You've bombed 3 times for free. That's the open mic.</h2>
       <p>Real comics pay for the autopsy — someone telling them exactly why the room went quiet.</p>
-      <p><strong>Reps — $5/month.</strong> 10 voice roasts. One weekly joke autopsy. Punchline clinic. Cancel anytime.</p>
-      <button onclick="startRepsCheckout()">Start Reps</button>
-      <button class="secondary" onclick="this.closest('.paywall-modal').remove()">Keep bombing free — no, really</button>
+      <p><strong>Reps — $${REPS_PRICE_USD}/month.</strong><br>
+      10 voice roasts. One weekly joke autopsy. Punchline clinic. Cancel anytime.</p>
+      <div class="paywall-actions">
+        <button type="button" class="primary" id="start-reps-btn">Start Reps — $${REPS_PRICE_USD}</button>
+        <button type="button" class="secondary" id="keep-bombing-btn">Keep bombing free — no, really</button>
+      </div>
     </div>
   `;
   document.body.appendChild(modal);
+
+  document.getElementById('start-reps-btn').addEventListener('click', startRepsCheckout);
+  document.getElementById('keep-bombing-btn').addEventListener('click', () => modal.remove());
 }
 
 function startRepsCheckout() {
-  // TODO: Stripe checkout for $5/month Reps tier
+  // TODO: create Stripe Checkout Session for $5/mo recurring "Reps"
+  // For now redirect to existing pro landing
   window.location.href = '/roast-pro';
 }
 
-// Autopsy submission (paid only)
-async function submitAutopsy(bitText, target) {
-  if (!isPaidReps(currentUser)) {
+// ---------- ElevenLabs voice (paid only) ----------
+async function generateTrailerGuyAudio(roastText, voiceId = 'TRAILER_GUY_VOICE_ID') {
+  // Production: call your /api/tts which holds the ElevenLabs key server-side
+  const res = await fetch('/api/tts', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ text: roastText, voiceId })
+  });
+  if (!res.ok) throw new Error('TTS failed');
+  const { audioUrl } = await res.json();
+  return audioUrl;
+}
+
+// ---------- Autopsy (paid, 1/week) ----------
+async function submitAutopsy(bitText, target = '') {
+  if (!isPaidReps(window.currentUser)) {
     showPaywall();
-    return;
+    return null;
   }
   const res = await fetch('/api/autopsy', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: {
+      'Content-Type': 'application/json',
+      ...(window.authToken ? { Authorization: `Bearer ${window.authToken}` } : {})
+    },
     body: JSON.stringify({ bit: bitText, target })
   });
-  return res.json(); // returns structured breakdown + 2 fixed versions
+  if (res.status === 429) {
+    alert('You already used this week's autopsy. Put in the reps and come back Monday.');
+    return null;
+  }
+  if (!res.ok) throw new Error('Autopsy failed');
+  return res.json(); // { setup, surprise, punch, tags, button, verdict, fixedVersions }
 }
 
-// Punchline clinic (paid only)
+// ---------- Punchline Clinic (paid) ----------
 async function punchlineClinic(weakLines) {
-  if (!isPaidReps(currentUser)) {
+  if (!isPaidReps(window.currentUser)) {
     showPaywall();
-    return;
+    return null;
+  }
+  if (!Array.isArray(weakLines) || weakLines.length === 0 || weakLines.length > 5) {
+    throw new Error('Send 1–5 weak punchlines');
   }
   const res = await fetch('/api/clinic', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: {
+      'Content-Type': 'application/json',
+      ...(window.authToken ? { Authorization: `Bearer ${window.authToken}` } : {})
+    },
     body: JSON.stringify({ lines: weakLines })
   });
-  return res.json(); // 3 rewrites each + one-line logic
+  if (!res.ok) throw new Error('Clinic failed');
+  return res.json(); // [{ original, rewrites: [..3], reason }]
 }
+
+// Export for other scripts
+window.BombedReps = {
+  canRoast,
+  afterSuccessfulRoast,
+  showPaywall,
+  startRepsCheckout,
+  generateTrailerGuyAudio,
+  submitAutopsy,
+  punchlineClinic,
+  isPaidReps,
+  getFreeRoastCount,
+  FREE_ROAST_CAP,
+  REPS_MONTHLY_ROASTS
+};
