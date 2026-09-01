@@ -2,6 +2,7 @@
 // Free cap: 3 text-only roasts (lifetime / localStorage).
 // Paid Reps ($5/mo): 10 voice roasts/month + weekly autopsy + punchline clinic.
 // Tone: Kill Tony / put in the fucking reps.
+// Last updated: Sep 1, 2026
 
 const FREE_ROAST_CAP = 3;
 const REPS_MONTHLY_ROASTS = 10;
@@ -16,16 +17,25 @@ function incrementFreeRoast() {
   localStorage.setItem('bombed_free_roasts', String(getFreeRoastCount() + 1));
 }
 
+// Call this after successful account signup/login to stop the free-reset exploit
+function migrateFreeRoastsToAccount(userId) {
+  const count = getFreeRoastCount();
+  if (count > 0 && userId) {
+    // POST to /api/migrate-free-roasts { userId, count }
+    // then optionally clear localStorage key
+  }
+}
+
 // ---------- Paid status (replace with real Stripe / JWT claim) ----------
 function isPaidReps(user) {
   // TODO: check Stripe subscription or account.plan === 'reps'
-  return !!(user && (user.subscription === 'reps' || user.plan === 'reps'));
+  return !!(user && (user.subscription === 'reps' || user.plan === 'reps' || user.subscription_status === 'active'));
 }
 
 // ---------- Gate ----------
 function canRoast(user) {
   if (isPaidReps(user)) {
-    // TODO: also enforce REPS_MONTHLY_ROASTS via server
+    // TODO: also enforce REPS_MONTHLY_ROASTS via server counter
     return true;
   }
   if (getFreeRoastCount() >= FREE_ROAST_CAP) {
@@ -49,6 +59,7 @@ function showPaywall() {
   const modal = document.createElement('div');
   modal.className = 'paywall-modal';
   modal.setAttribute('role', 'dialog');
+  modal.setAttribute('aria-modal', 'true');
   modal.innerHTML = `
     <div class="paywall-card">
       <h2>You've bombed 3 times for free. That's the open mic.</h2>
@@ -68,17 +79,19 @@ function showPaywall() {
 }
 
 function startRepsCheckout() {
-  // TODO: create Stripe Checkout Session for $5/mo recurring "Reps"
-  // For now redirect to existing pro landing
+  // Production: fetch('/api/create-checkout', { method: 'POST' }) → redirect to session.url
+  // Until Stripe is wired, fall back to existing pro landing
   window.location.href = '/roast-pro';
 }
 
-// ---------- ElevenLabs voice (paid only) ----------
+// ---------- ElevenLabs voice (paid only — key stays on server) ----------
 async function generateTrailerGuyAudio(roastText, voiceId = 'TRAILER_GUY_VOICE_ID') {
-  // Production: call your /api/tts which holds the ElevenLabs key server-side
   const res = await fetch('/api/tts', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: {
+      'Content-Type': 'application/json',
+      ...(window.authToken ? { Authorization: `Bearer ${window.authToken}` } : {})
+    },
     body: JSON.stringify({ text: roastText, voiceId })
   });
   if (!res.ok) throw new Error('TTS failed');
@@ -101,7 +114,7 @@ async function submitAutopsy(bitText, target = '') {
     body: JSON.stringify({ bit: bitText, target })
   });
   if (res.status === 429) {
-    alert('You already used this week's autopsy. Put in the reps and come back Monday.');
+    alert('You already used this week\'s autopsy. Put in the reps and come back Monday.');
     return null;
   }
   if (!res.ok) throw new Error('Autopsy failed');
@@ -140,6 +153,8 @@ window.BombedReps = {
   punchlineClinic,
   isPaidReps,
   getFreeRoastCount,
+  migrateFreeRoastsToAccount,
   FREE_ROAST_CAP,
-  REPS_MONTHLY_ROASTS
+  REPS_MONTHLY_ROASTS,
+  REPS_PRICE_USD
 };

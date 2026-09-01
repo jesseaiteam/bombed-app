@@ -14,10 +14,11 @@ AI comedy platform and stand-up training ground by Jesse Salas (Sacramento).
 ## Repo contents (Claude pack)
 | File | Purpose |
 |------|---------|
-| `CLAUDE-INSTRUCTIONS.md` | Full feature spec, pseudocode, pricing copy, autopsy demo, build order |
+| `CLAUDE-INSTRUCTIONS.md` | Full feature spec, pseudocode, pricing copy, autopsy demo, build order, Stripe notes |
 | `reps-tier.js` | Paywall, free-cap logic, voice/autopsy/clinic client stubs |
 | `autopsy.html` | Demo autopsy page + submit form |
 | `autopsy.js` | Form handler for autopsy submissions |
+| `material/` | Extra Trailer Guy bit material |
 | `README.md` | This file |
 
 ## How to use with Claude
@@ -27,7 +28,7 @@ AI comedy platform and stand-up training ground by Jesse Salas (Sacramento).
 4. Copy the generated code into your Cloudflare Pages project / this repo.
 
 ## Status
-- Expanded Claude pack: Aug 31, 2026
+- Expanded Claude pack: Sep 1, 2026
 - Next for Jesse: Stripe product + Checkout, deploy paywall, ship first live autopsy
 
 Built for comics who put in the reps.

@@ -3,6 +3,8 @@
 
 **Goal:** Turn the free-everything site into a hard-capped free tier + $5/month **Reps** flagship. Scarcity + teaching = money. Keep Redline Engine, lessons, and games as the free hook. Do NOT deploy live from this pack — generate the code and leave it for Jesse to wire/Stripe/deploy.
 
+**Last updated:** Sep 1, 2026 (Grok session)
+
 ---
 
 ## 1. DETAILED FEATURE SPEC — $5/month "Reps" Tier
@@ -13,17 +15,17 @@
 Reps is the Kill Tony Monday-night energy productized: put in the reps, get told why the room went quiet, rewrite the punch, get the voice.
 
 ### Free Tier (hard cap)
-- **3 roasts total (lifetime for anonymous, resets only on new device/localStorage clear)**
+- **3 roasts total (lifetime for anonymous users via localStorage; migrates to account on signup)**
 - Text-only output (no ElevenLabs voice)
 - Full access to: lessons, games, Redline Engine (punch-up tools), Redline Pass, Talent Gallery submit
-- No autopsy, no punchline clinic, no saved wins cloud
-- When cap hit → aggressive paywall modal (copy below)
+- No autopsy, no punchline clinic, no Saved Wins cloud sync
+- When cap hit → aggressive paywall modal (copy in section 3)
 
 ### Reps Tier — $5/month (cancel anytime)
 | Feature | Limit / Detail |
 |---------|----------------|
 | **Voice Roasts** | 10 per calendar month. Two characters roast the target. Full ElevenLabs "Trailer Guy" (or per-character) TTS. Audio cached & downloadable. |
-| **Weekly Joke Autopsy** | 1 submission per week. User pastes bit + optional target/context. Trailer Guy returns structured breakdown (Setup / Surprise / Punch / Tags / Button / Verdict + 2 fixed versions). |
+| **Weekly Joke Autopsy** | 1 submission per ISO week. User pastes bit + optional target/context. Trailer Guy returns structured breakdown (Setup / Surprise / Punch / Tags / Button / Verdict + 2 fixed versions). |
 | **Punchline Clinic** | Up to 5 weak punchlines per session. Each gets 3 stronger rewrites + one-line logic why the original died. |
 | **Saved Wins** | Local + account-synced list of best rewrites & autopsy fixes. Export as text/JSON. |
 | **Caption / Hook tools** | Quick generators for social clips from winning lines. |
@@ -46,116 +48,72 @@ Reps is the Kill Tony Monday-night energy productized: put in the reps, get told
 ```
 /
 ├── index.html
-├── styles.css
-├── reps-tier.js          ← paywall, limits, checkout trigger
+├── styles.css                 ← add .paywall-modal styles
+├── reps-tier.js               ← paywall, limits, checkout trigger, client gates
 ├── autopsy.html
 ├── autopsy.js
 ├── clinic.html (optional)
 ├── api/
-│   ├── roast.js          ← existing + voice gate
-│   ├── autopsy.js        ← new
-│   ├── clinic.js         ← new
-│   └── stripe-webhook.js ← subscription status
+│   ├── roast.js               ← existing + voice gate + monthly counter
+│   ├── autopsy.js             ← new: weekly quota + structured GPT
+│   ├── clinic.js              ← new
+│   ├── tts.js                 ← ElevenLabs proxy (key stays server-side)
+│   └── stripe-webhook.js      ← subscription status updates
 └── CLAUDE-INSTRUCTIONS.md
 ```
 
-### Paywall + roast limits (reps-tier.js — expanded)
-```javascript
-// BOMBED.app — Reps Tier Logic
-// Free = 3 text roasts lifetime (localStorage). Paid = 10 voice/month + autopsy + clinic.
+### Paywall + roast limits (reps-tier.js)
+See the live `reps-tier.js` in this repo. Core logic:
 
+```javascript
 const FREE_ROAST_CAP = 3;
 const REPS_MONTHLY_ROASTS = 10;
 
-function getFreeRoastCount() {
-  return parseInt(localStorage.getItem('bombed_free_roasts') || '0', 10);
-}
-function incrementFreeRoast() {
-  localStorage.setItem('bombed_free_roasts', String(getFreeRoastCount() + 1));
-}
-
-// Paid status comes from account / Stripe customer portal / JWT claim
-function isPaidReps(user) {
-  return !!(user && (user.subscription === 'reps' || user.plan === 'reps'));
-}
-
 function canRoast(user) {
-  if (isPaidReps(user)) {
-    // TODO: also check monthly usage against REPS_MONTHLY_ROASTS via API
-    return true;
-  }
+  if (isPaidReps(user)) return true; // still enforce monthly server-side
   if (getFreeRoastCount() >= FREE_ROAST_CAP) {
     showPaywall();
     return false;
   }
   return true;
 }
-
-function afterSuccessfulRoast(user) {
-  if (!isPaidReps(user)) incrementFreeRoast();
-  // paid: increment monthly counter server-side
-}
-
-function showPaywall() {
-  // inject modal — full copy in section 3
-  const modal = document.createElement('div');
-  modal.className = 'paywall-modal';
-  modal.innerHTML = `...`; // see pricing copy
-  document.body.appendChild(modal);
-}
-
-function startRepsCheckout() {
-  // Stripe Checkout Session for price $5/mo recurring
-  // window.location = stripeCheckoutUrl or fetch('/api/create-checkout')
-  window.location.href = '/roast-pro'; // existing landing until Stripe wired
-}
 ```
 
-### ElevenLabs voice integration (pseudocode)
+Store free count in localStorage for anonymous users; on signup/login migrate the count to the account record so they cannot reset by clearing storage.
+
+### ElevenLabs voice integration
+- Never put the ElevenLabs API key in client code.
+- Client calls `/api/tts` (Cloudflare Pages Function / Worker).
+- Server checks `isPaidReps` (or Fast Joke Fix one-time entitlement) before calling ElevenLabs.
+- Cache audio by hash of (text + voiceId) in R2 or similar; return permanent CDN URL.
+- Voice ID: Trailer Guy (store as env var `TRAILER_GUY_VOICE_ID`).
+
 ```javascript
-// Call after roast text is generated. Only for paid Reps (or Fast Joke Fix).
-async function generateTrailerGuyAudio(roastText, characterVoiceId = 'TRAILER_GUY_VOICE_ID') {
-  const res = await fetch('https://api.elevenlabs.io/v1/text-to-speech/' + characterVoiceId, {
+// Client (paid only)
+async function generateTrailerGuyAudio(roastText, voiceId = 'TRAILER_GUY_VOICE_ID') {
+  const res = await fetch('/api/tts', {
     method: 'POST',
-    headers: {
-      'xi-api-key': process.env.ELEVENLABS_API_KEY,
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      text: roastText,
-      model_id: 'eleven_monolingual_v1', // or turbo
-      voice_settings: { stability: 0.4, similarity_boost: 0.8 }
-    })
+    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+    body: JSON.stringify({ text: roastText, voiceId })
   });
-  const audioBlob = await res.blob();
-  // upload to R2 / Cloudflare or return temporary URL; cache by hash of text
-  return URL.createObjectURL(audioBlob); // client demo; production = permanent CDN URL
+  if (!res.ok) throw new Error('TTS failed');
+  const { audioUrl } = await res.json();
+  return audioUrl;
 }
 ```
 
 ### Autopsy submission flow
-```javascript
-// Client
-async function submitAutopsy(bitText, target = '') {
-  if (!isPaidReps(currentUser)) { showPaywall(); return null; }
-  const res = await fetch('/api/autopsy', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
-    body: JSON.stringify({ bit: bitText, target, weekKey: getISOWeek() })
-  });
-  if (res.status === 429) throw new Error('Weekly autopsy already used');
-  return res.json();
-}
+**Client:** `window.BombedReps.submitAutopsy(bit, target)` → POST `/api/autopsy`
 
-// Server /api/autopsy (Cloudflare Worker or Pages Function)
-// 1. Verify Stripe subscription active
-// 2. Check weekly quota (1 per ISO week per user)
-// 3. Prompt GPT with Trailer Guy system prompt + structured output schema
-// 4. Optionally TTS the verdict with ElevenLabs
-// 5. Store result + return JSON
-```
+**Server /api/autopsy (pseudocode):**
+1. Verify JWT / session and active Stripe "Reps" subscription.
+2. Check weekly quota (1 per ISO week per user_id). Return 429 if already used.
+3. Build system prompt as Trailer Guy (loud, vulgar when it fits, craft-focused: setup / surprise / punch / tags / button).
+4. Force structured JSON output matching the schema below.
+5. Optionally generate TTS of the verdict line.
+6. Persist result + increment weekly counter. Return JSON.
 
-**Structured autopsy response schema (force this):**
+**Forced response schema:**
 ```json
 {
   "setup": "what expectation you built",
@@ -168,10 +126,33 @@ async function submitAutopsy(bitText, target = '') {
 }
 ```
 
-### Punchline Clinic (same pattern)
-- Input array of ≤5 weak lines
-- Output: for each line → 3 rewrites + one-line reason
-- Gate behind isPaidReps + optional daily soft limit
+### Punchline Clinic
+- Input: array of 1–5 weak punchlines.
+- Output: `[{ original, rewrites: [str, str, str], reason: "one-line logic" }]`
+- Gate behind isPaidReps. Soft daily limit optional.
+
+### Stripe notes (for Claude / Jesse)
+- Create Product "Reps" + recurring Price $5/month.
+- Checkout Session mode=subscription, success_url + cancel_url.
+- Webhook: `customer.subscription.created/updated/deleted` → update user.plan / user.subscription_status in DB.
+- Client `startRepsCheckout()` should hit `/api/create-checkout` which returns the Stripe session URL.
+- Until wired, the existing redirect to `/roast-pro` is fine as a placeholder.
+
+### Paywall CSS stub (add to styles.css)
+```css
+.paywall-modal {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.85);
+  display: flex; align-items: center; justify-content: center; z-index: 9999;
+}
+.paywall-card {
+  background: #111; border: 2px solid #ff2d2d; border-radius: 12px;
+  padding: 2rem; max-width: 28rem; text-align: center; color: #f5f5f5;
+}
+.paywall-card h2 { color: #ff2d2d; margin-top: 0; }
+.paywall-actions { display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1.5rem; }
+.paywall-actions .primary { background: #ff2d2d; color: #fff; font-weight: 700; padding: 0.8rem; border: none; border-radius: 6px; cursor: pointer; }
+.paywall-actions .secondary { background: transparent; color: #888; border: 1px solid #444; padding: 0.6rem; border-radius: 6px; cursor: pointer; }
+```
 
 ---
 
@@ -193,7 +174,7 @@ REPS — $5/month
 [ Keep bombing free — no, really ]
 ```
 
-### Pricing / Roast-Pro page hero copy
+### Pricing / Roast-Pro page hero
 ```
 PUT IN THE REPS.
 
@@ -205,7 +186,7 @@ $5/month. Cancel when you finally kill.
 [ Join Reps ]
 ```
 
-### Feature bullets (pricing table)
+### Feature bullets
 **Free**
 - Lessons, games, Redline Engine
 - 3 text-only roasts (lifetime)
@@ -222,15 +203,16 @@ $5/month. Cancel when you finally kill.
 - Vault $4.99 — 73 shows
 - Fast Joke Fix $19 — emergency rewrite + voice
 
-### Microcopy / buttons
+### Microcopy
 - CTA primary: "Start Reps — $5"
 - Secondary: "Keep bombing free — no, really"
 - Success after checkout: "Welcome to the room. Put in the reps."
 - Autopsy empty state: "Paste the bit that died. Trailer Guy will tell you why."
+- Weekly limit hit: "You already used this week's autopsy. Put in the reps and come back Monday."
 
 ---
 
-## 4. SAMPLE FIRST AUTOPSY DEMO (post on /autopsy)
+## 4. SAMPLE FIRST AUTOPSY DEMO (live on /autopsy)
 
 **Bit submitted:**  
 "I clean toilets to fund a comedy app."
@@ -259,13 +241,13 @@ You died because you narrated instead of surprising."
 ---
 
 ## 5. WHAT TO BUILD FIRST (order for Claude)
-1. Free roast cap + paywall modal (localStorage + showPaywall)
+1. Free roast cap + paywall modal (localStorage + showPaywall + CSS)
 2. Stripe Checkout for $5/mo "Reps" + webhook to set subscription status
-3. Gate voice TTS behind paid status
-4. Autopsy form + /api/autopsy with structured GPT prompt + weekly quota
+3. Gate voice TTS behind paid status (`/api/tts`)
+4. Autopsy form + `/api/autopsy` with structured GPT prompt + weekly quota
 5. Punchline clinic endpoint
 6. Pricing page copy + nav links ("Reps $5", "Autopsy")
-7. Demo autopsy page live at /autopsy
+7. Demo autopsy page live at `/autopsy`
 
 ## 6. DO NOT TOUCH
 - Punch-up-only policy
