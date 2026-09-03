@@ -3,7 +3,7 @@
 
 **Goal:** Turn the free-everything site into a hard-capped free tier + $5/month **Reps** flagship. Scarcity + teaching = money. Keep Redline Engine, lessons, and games as the free hook. Do NOT deploy live from this pack — generate the code and leave it for Jesse to wire/Stripe/deploy.
 
-**Last updated:** Sep 2, 2026 (Grok session)
+**Last updated:** Sep 3, 2026 (Grok session)
 
 ---
 

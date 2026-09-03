@@ -28,7 +28,7 @@ AI comedy platform and stand-up training ground by Jesse Salas (Sacramento).
 4. Copy the generated code into your Cloudflare Pages project / this repo.
 
 ## Status
-- Claude pack refreshed: **Sep 2, 2026**
+- Claude pack refreshed: **Sep 3, 2026**
 - Free cap = 3 lifetime text-only roasts
 - Reps = $5/mo · 10 voice roasts · 1 weekly autopsy · punchline clinic
 - Next for Jesse: Stripe product + Checkout, deploy paywall, ship first live autopsy
