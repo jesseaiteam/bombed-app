@@ -2,7 +2,7 @@
 // Free cap: 3 text-only roasts (lifetime / localStorage).
 // Paid Reps ($5/mo): 10 voice roasts/month + weekly autopsy + punchline clinic.
 // Tone: Kill Tony / put in the fucking reps.
-// Last updated: Sep 4, 2026
+// Last updated: Sep 5, 2026
 
 const FREE_ROAST_CAP = 3;
 const REPS_MONTHLY_ROASTS = 10;
