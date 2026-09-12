@@ -18,6 +18,7 @@ AI comedy platform and stand-up training ground by Jesse Salas (Sacramento).
 | `reps-tier.js` | Paywall, free-cap logic, voice/autopsy/clinic client stubs |
 | `autopsy.html` | Demo autopsy page + submit form |
 | `autopsy.js` | Form handler for autopsy submissions |
+| `pricing.html` | Copy-ready pricing / Reps landing stub |
 | `material/` | Extra Trailer Guy bit material |
 | `README.md` | This file |
 
@@ -28,9 +29,10 @@ AI comedy platform and stand-up training ground by Jesse Salas (Sacramento).
 4. Copy the generated code into your Cloudflare Pages project / this repo.
 
 ## Status
-- Claude pack refreshed: **Sep 11, 2026**
+- Claude pack refreshed: **Sep 12, 2026**
 - Free cap = 3 lifetime text-only roasts
 - Reps = $5/mo · 10 voice roasts · 1 weekly autopsy · punchline clinic
 - Next for Jesse: Stripe product + Checkout, deploy paywall, ship first live autopsy
+- **Do not deploy live from this pack.**
 
 Built for comics who put in the fucking reps.

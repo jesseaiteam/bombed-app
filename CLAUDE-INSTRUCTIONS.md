@@ -3,7 +3,7 @@
 
 **Goal:** Turn the free-everything site into a hard-capped free tier + $5/month **Reps** flagship. Scarcity + teaching = money. Keep Redline Engine, lessons, and games as the free hook. Do NOT deploy live from this pack — generate the code and leave it for Jesse to wire/Stripe/deploy.
 
-**Last updated:** Sep 11, 2026 (Grok session)
+**Last updated:** Sep 12, 2026 (Grok session)
 
 ---
 
@@ -39,6 +39,7 @@ Reps is the Kill Tony Monday-night energy productized: put in the reps, get told
 - Punch-up only. No identity roasts, no protected-class targeting.
 - Free Redline Engine stays free (the hook).
 - Do not break existing combinatorial roast engine.
+- Do not deploy live from this pack.
 
 ---
 
@@ -48,6 +49,7 @@ Reps is the Kill Tony Monday-night energy productized: put in the reps, get told
 ```
 /
 ├── index.html
+├── pricing.html              ← Reps landing (copy in this repo)
 ├── styles.css                 ← add .paywall-modal styles
 ├── reps-tier.js               ← paywall, limits, checkout trigger, client gates
 ├── autopsy.html
@@ -81,6 +83,23 @@ function canRoast(user) {
 
 Store free count in localStorage for anonymous users; on signup/login migrate the count to the account record so they cannot reset by clearing storage.
 
+**Server roast gate (must exist — client cap is not enough):**
+```javascript
+// /api/roast
+async function handleRoast(req, user) {
+  if (!user) {
+    const n = getAnonCount(req); // cookie or fingerprint + localStorage handshake
+    if (n >= 3) return { status: 402, paywall: true };
+  } else if (user.plan !== 'reps' || user.subscription_status !== 'active') {
+    if ((user.lifetime_free_roasts || 0) >= 3) return { status: 402, paywall: true };
+  } else {
+    const used = await monthlyRoastCount(user.id, currentMonthKey());
+    if (used >= 10) return { status: 429, message: 'You burned your 10 voice roasts. Come back next month or buy a Fast Joke Fix.' };
+  }
+  // generate roast; if paid + voice requested, queue /api/tts
+}
+```
+
 ### ElevenLabs voice integration
 - Never put the ElevenLabs API key in client code.
 - Client calls `/api/tts` (Cloudflare Pages Function / Worker).
@@ -99,6 +118,21 @@ async function generateTrailerGuyAudio(roastText, voiceId = 'TRAILER_GUY_VOICE_I
   if (!res.ok) throw new Error('TTS failed');
   const { audioUrl } = await res.json();
   return audioUrl;
+}
+```
+
+```javascript
+// /api/tts (server)
+export async function onRequestPost(context) {
+  const user = await auth(context.request);
+  if (!isPaidOrFix(user)) return new Response('paywall', { status: 402 });
+  const { text, voiceId } = await context.request.json();
+  const key = hash(text + voiceId);
+  const cached = await env.R2.get(`tts/${key}.mp3`);
+  if (cached) return json({ audioUrl: cdn(key) });
+  const audio = await elevenLabsSpeak(env.ELEVENLABS_KEY, voiceId || env.TRAILER_GUY_VOICE_ID, text);
+  await env.R2.put(`tts/${key}.mp3`, audio);
+  return json({ audioUrl: cdn(key) });
 }
 ```
 
@@ -126,6 +160,14 @@ async function generateTrailerGuyAudio(roastText, voiceId = 'TRAILER_GUY_VOICE_I
 }
 ```
 
+**Trailer Guy system prompt (paste into Claude / server):**
+```
+You are Trailer Guy, the autopsy host on BOMBED.app. Kill Tony energy. Loud. Vulgar when it earns it. Never corporate. You do not write new premises from scratch — you autopsy the bit they brought.
+Break the bit into: setup, surprise, punch, tags, button, verdict, two fixed versions.
+Rules: punch-up only. No identity attacks. If they explained the joke, say so like they just stepped on their own dick. Keep each field short enough to read on a phone in a green room.
+Return JSON only matching the schema.
+```
+
 ### Punchline Clinic
 - Input: array of 1–5 weak punchlines.
 - Output: `[{ original, rewrites: [str, str, str], reason: "one-line logic" }]`
@@ -137,6 +179,7 @@ async function generateTrailerGuyAudio(roastText, voiceId = 'TRAILER_GUY_VOICE_I
 - Webhook: `customer.subscription.created/updated/deleted` → update user.plan / user.subscription_status in DB.
 - Client `startRepsCheckout()` should hit `/api/create-checkout` which returns the Stripe session URL.
 - Until wired, the existing redirect to `/roast-pro` is fine as a placeholder.
+- Do not flip live billing from this pack.
 
 ### Paywall CSS stub (add to styles.css)
 ```css
@@ -209,6 +252,9 @@ $5/month. Cancel when you finally kill.
 - Success after checkout: "Welcome to the room. Put in the reps."
 - Autopsy empty state: "Paste the bit that died. Trailer Guy will tell you why."
 - Weekly limit hit: "You already used this week's autopsy. Put in the reps and come back Monday."
+- Monthly roast cap: "You burned your 10 voice roasts. Come back next month or buy a Fast Joke Fix."
+
+Full HTML stub lives in `pricing.html`.
 
 ---
 
@@ -238,6 +284,16 @@ You died because you narrated instead of surprising."
 - **Fixed 1:** "I scrub toilets so a robot can make me funny."
 - **Fixed 2:** "I scrub toilets so a robot can make me funny. The robot's funnier than me. That's not a business plan, that's a hostage situation. Roger still hasn't called back."
 
+### Second demo bit (use if you want a second card on /autopsy)
+**Bit:** "Open mics don't pay, so I pay them with my dignity."
+
+**Trailer Guy:**  
+"Dignity is a lecture. The room already knows you ate it. Don't announce the bruise — show the receipt.  
+Try: 'I paid the open mic in dignity. They still charged a two-drink minimum.'  
+Tag: 'The bartender comped the dignity. Kept the tab.'  
+Button: 'I tipped him my next five minutes.'  
+You died because you moralized instead of spending the humiliation."
+
 ---
 
 ## 5. WHAT TO BUILD FIRST (order for Claude)
@@ -254,6 +310,7 @@ You died because you narrated instead of surprising."
 - Free Redline Engine / lessons / games
 - Existing Vault + $19 Fast Joke Fix
 - Combinatorial roast character engine
+- Live production deploy from this pack
 
 ---
 
