@@ -3,7 +3,7 @@
 
 **Goal:** Turn the free-everything site into a hard-capped free tier + $5/month **Reps** flagship. Scarcity + teaching = money. Keep Redline Engine, lessons, and games as the free hook. Do NOT deploy live from this pack — generate the code and leave it for Jesse to wire/Stripe/deploy.
 
-**Last updated:** Sep 12, 2026 (Grok session)
+**Last updated:** Sep 13, 2026 (Grok session)
 
 ---
 
@@ -88,7 +88,7 @@ Store free count in localStorage for anonymous users; on signup/login migrate th
 // /api/roast
 async function handleRoast(req, user) {
   if (!user) {
-    const n = getAnonCount(req); // cookie or fingerprint + localStorage handshake
+    const n = getAnonCount(req);
     if (n >= 3) return { status: 402, paywall: true };
   } else if (user.plan !== 'reps' || user.subscription_status !== 'active') {
     if ((user.lifetime_free_roasts || 0) >= 3) return { status: 402, paywall: true };
@@ -96,7 +96,6 @@ async function handleRoast(req, user) {
     const used = await monthlyRoastCount(user.id, currentMonthKey());
     if (used >= 10) return { status: 429, message: 'You burned your 10 voice roasts. Come back next month or buy a Fast Joke Fix.' };
   }
-  // generate roast; if paid + voice requested, queue /api/tts
 }
 ```
 
@@ -108,7 +107,6 @@ async function handleRoast(req, user) {
 - Voice ID: Trailer Guy (store as env var `TRAILER_GUY_VOICE_ID`).
 
 ```javascript
-// Client (paid only)
 async function generateTrailerGuyAudio(roastText, voiceId = 'TRAILER_GUY_VOICE_ID') {
   const res = await fetch('/api/tts', {
     method: 'POST',
@@ -139,11 +137,11 @@ export async function onRequestPost(context) {
 ### Autopsy submission flow
 **Client:** `window.BombedReps.submitAutopsy(bit, target)` → POST `/api/autopsy`
 
-**Server /api/autopsy (pseudocode):**
+**Server /api/autopsy:**
 1. Verify JWT / session and active Stripe "Reps" subscription.
 2. Check weekly quota (1 per ISO week per user_id). Return 429 if already used.
-3. Build system prompt as Trailer Guy (loud, vulgar when it fits, craft-focused: setup / surprise / punch / tags / button).
-4. Force structured JSON output matching the schema below.
+3. Build system prompt as Trailer Guy.
+4. Force structured JSON output.
 5. Optionally generate TTS of the verdict line.
 6. Persist result + increment weekly counter. Return JSON.
 
@@ -160,7 +158,7 @@ export async function onRequestPost(context) {
 }
 ```
 
-**Trailer Guy system prompt (paste into Claude / server):**
+**Trailer Guy system prompt:**
 ```
 You are Trailer Guy, the autopsy host on BOMBED.app. Kill Tony energy. Loud. Vulgar when it earns it. Never corporate. You do not write new premises from scratch — you autopsy the bit they brought.
 Break the bit into: setup, surprise, punch, tags, button, verdict, two fixed versions.
@@ -171,17 +169,17 @@ Return JSON only matching the schema.
 ### Punchline Clinic
 - Input: array of 1–5 weak punchlines.
 - Output: `[{ original, rewrites: [str, str, str], reason: "one-line logic" }]`
-- Gate behind isPaidReps. Soft daily limit optional.
+- Gate behind isPaidReps.
 
-### Stripe notes (for Claude / Jesse)
+### Stripe notes
 - Create Product "Reps" + recurring Price $5/month.
-- Checkout Session mode=subscription, success_url + cancel_url.
-- Webhook: `customer.subscription.created/updated/deleted` → update user.plan / user.subscription_status in DB.
-- Client `startRepsCheckout()` should hit `/api/create-checkout` which returns the Stripe session URL.
-- Until wired, the existing redirect to `/roast-pro` is fine as a placeholder.
+- Checkout Session mode=subscription.
+- Webhook: `customer.subscription.created/updated/deleted` → update user.plan / user.subscription_status.
+- Client `startRepsCheckout()` hits `/api/create-checkout`.
+- Until wired, redirect to `/roast-pro` is the placeholder.
 - Do not flip live billing from this pack.
 
-### Paywall CSS stub (add to styles.css)
+### Paywall CSS stub
 ```css
 .paywall-modal {
   position: fixed; inset: 0; background: rgba(0,0,0,0.85);
@@ -284,7 +282,7 @@ You died because you narrated instead of surprising."
 - **Fixed 1:** "I scrub toilets so a robot can make me funny."
 - **Fixed 2:** "I scrub toilets so a robot can make me funny. The robot's funnier than me. That's not a business plan, that's a hostage situation. Roger still hasn't called back."
 
-### Second demo bit (use if you want a second card on /autopsy)
+### Second demo bit
 **Bit:** "Open mics don't pay, so I pay them with my dignity."
 
 **Trailer Guy:**  
@@ -293,6 +291,16 @@ Try: 'I paid the open mic in dignity. They still charged a two-drink minimum.'
 Tag: 'The bartender comped the dignity. Kept the tab.'  
 Button: 'I tipped him my next five minutes.'  
 You died because you moralized instead of spending the humiliation."
+
+### Third demo bit (Sep 13 add)
+**Bit:** "My back is so cooked I write jokes standing up because sitting feels like a threat."
+
+**Trailer Guy:**  
+"Pain is real. Announcing pain is a TED Talk. The laugh is in the threat assessment.  
+Try: 'I write standing up. Sitting filed a restraining order.'  
+Tag: 'The chair won the first hearing.'  
+Button: 'I'm appealing from the kitchen counter.'  
+You died because you reported the injury instead of letting the furniture become the enemy."
 
 ---
 
