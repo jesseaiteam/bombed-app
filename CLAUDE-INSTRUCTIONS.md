@@ -3,7 +3,7 @@
 
 **Goal:** Turn the free-everything site into a hard-capped free tier + $5/month **Reps** flagship. Scarcity + teaching = money. Keep Redline Engine, lessons, and games as the free hook. Do NOT deploy live from this pack — generate the code and leave it for Jesse to wire/Stripe/deploy.
 
-**Last updated:** Sep 13, 2026 (Grok session)
+**Last updated:** Sep 14, 2026 (Grok session)
 
 ---
 
@@ -292,7 +292,7 @@ Tag: 'The bartender comped the dignity. Kept the tab.'
 Button: 'I tipped him my next five minutes.'  
 You died because you moralized instead of spending the humiliation."
 
-### Third demo bit (Sep 13 add)
+### Third demo bit
 **Bit:** "My back is so cooked I write jokes standing up because sitting feels like a threat."
 
 **Trailer Guy:**  
@@ -301,6 +301,16 @@ Try: 'I write standing up. Sitting filed a restraining order.'
 Tag: 'The chair won the first hearing.'  
 Button: 'I'm appealing from the kitchen counter.'  
 You died because you reported the injury instead of letting the furniture become the enemy."
+
+### Fourth demo bit (Sep 14 add)
+**Bit:** "I built an app that roasts people so I don't have to hear my own set die."
+
+**Trailer Guy:**  
+"That's a confession, not a joke. You told us the motive. Motive is setup. The punch is what the app does when YOU bomb.  
+Try: 'I built a roast app so the bots can bomb for me.'  
+Tag: 'They still get more laughs. They're unionizing.'  
+Button: 'I pay them five bucks a month. That's my own ransom.'  
+You died because you explained the product instead of becoming the product."
 
 ---
 
