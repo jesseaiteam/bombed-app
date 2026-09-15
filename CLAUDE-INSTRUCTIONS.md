@@ -3,7 +3,7 @@
 
 **Goal:** Turn the free-everything site into a hard-capped free tier + $5/month **Reps** flagship. Scarcity + teaching = money. Keep Redline Engine, lessons, and games as the free hook. Do NOT deploy live from this pack — generate the code and leave it for Jesse to wire/Stripe/deploy.
 
-**Last updated:** Sep 14, 2026 (Grok session)
+**Last updated:** Sep 15, 2026 (Grok session)
 
 ---
 
@@ -49,18 +49,17 @@ Reps is the Kill Tony Monday-night energy productized: put in the reps, get told
 ```
 /
 ├── index.html
-├── pricing.html              ← Reps landing (copy in this repo)
-├── styles.css                 ← add .paywall-modal styles
-├── reps-tier.js               ← paywall, limits, checkout trigger, client gates
+├── pricing.html
+├── styles.css
+├── reps-tier.js
 ├── autopsy.html
 ├── autopsy.js
-├── clinic.html (optional)
-├── api/
-│   ├── roast.js               ← existing + voice gate + monthly counter
-│   ├── autopsy.js             ← new: weekly quota + structured GPT
-│   ├── clinic.js              ← new
-│   ├── tts.js                 ← ElevenLabs proxy (key stays server-side)
-│   └── stripe-webhook.js      ← subscription status updates
+├── functions/api/
+│   ├── roast.js
+│   ├── autopsy.js
+│   ├── clinic.js
+│   ├── tts.js
+│   └── stripe-webhook.js
 └── CLAUDE-INSTRUCTIONS.md
 ```
 
@@ -99,40 +98,14 @@ async function handleRoast(req, user) {
 }
 ```
 
+Worker stubs now live under `functions/api/` — implement, do not deploy.
+
 ### ElevenLabs voice integration
 - Never put the ElevenLabs API key in client code.
 - Client calls `/api/tts` (Cloudflare Pages Function / Worker).
 - Server checks `isPaidReps` (or Fast Joke Fix one-time entitlement) before calling ElevenLabs.
-- Cache audio by hash of (text + voiceId) in R2 or similar; return permanent CDN URL.
-- Voice ID: Trailer Guy (store as env var `TRAILER_GUY_VOICE_ID`).
-
-```javascript
-async function generateTrailerGuyAudio(roastText, voiceId = 'TRAILER_GUY_VOICE_ID') {
-  const res = await fetch('/api/tts', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
-    body: JSON.stringify({ text: roastText, voiceId })
-  });
-  if (!res.ok) throw new Error('TTS failed');
-  const { audioUrl } = await res.json();
-  return audioUrl;
-}
-```
-
-```javascript
-// /api/tts (server)
-export async function onRequestPost(context) {
-  const user = await auth(context.request);
-  if (!isPaidOrFix(user)) return new Response('paywall', { status: 402 });
-  const { text, voiceId } = await context.request.json();
-  const key = hash(text + voiceId);
-  const cached = await env.R2.get(`tts/${key}.mp3`);
-  if (cached) return json({ audioUrl: cdn(key) });
-  const audio = await elevenLabsSpeak(env.ELEVENLABS_KEY, voiceId || env.TRAILER_GUY_VOICE_ID, text);
-  await env.R2.put(`tts/${key}.mp3`, audio);
-  return json({ audioUrl: cdn(key) });
-}
-```
+- Cache audio by hash of (text + voiceId) in R2; return CDN URL.
+- Voice ID: Trailer Guy (env `TRAILER_GUY_VOICE_ID`).
 
 ### Autopsy submission flow
 **Client:** `window.BombedReps.submitAutopsy(bit, target)` → POST `/api/autopsy`
@@ -302,7 +275,7 @@ Tag: 'The chair won the first hearing.'
 Button: 'I'm appealing from the kitchen counter.'  
 You died because you reported the injury instead of letting the furniture become the enemy."
 
-### Fourth demo bit (Sep 14 add)
+### Fourth demo bit
 **Bit:** "I built an app that roasts people so I don't have to hear my own set die."
 
 **Trailer Guy:**  
@@ -311,6 +284,16 @@ Try: 'I built a roast app so the bots can bomb for me.'
 Tag: 'They still get more laughs. They're unionizing.'  
 Button: 'I pay them five bucks a month. That's my own ransom.'  
 You died because you explained the product instead of becoming the product."
+
+### Fifth demo bit (Sep 15 add)
+**Bit:** "I moved to Sacramento because rent is cheap and so is the crowd."
+
+**Trailer Guy:**  
+"Geography is setup. Calling the crowd cheap is you begging for a fight you didn't earn. The laugh is in the rent, not the insult.  
+Try: 'Rent's cheap. So is the applause. I signed a lease on both.'  
+Tag: 'The landlord clapped. The room asked for a deposit.'  
+Button: 'I paid first, last, and a two-drink minimum.'  
+You died because you roasted the room instead of the lease."
 
 ---
 
@@ -322,6 +305,7 @@ You died because you explained the product instead of becoming the product."
 5. Punchline clinic endpoint
 6. Pricing page copy + nav links ("Reps $5", "Autopsy")
 7. Demo autopsy page live at `/autopsy`
+8. Flesh out `functions/api/*` stubs into real Workers (keys in env only)
 
 ## 6. DO NOT TOUCH
 - Punch-up-only policy
