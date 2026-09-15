@@ -3,7 +3,7 @@
 
 **Goal:** Turn the free-everything site into a hard-capped free tier + $5/month **Reps** flagship. Scarcity + teaching = money. Keep Redline Engine, lessons, and games as the free hook. Do NOT deploy live from this pack — generate the code and leave it for Jesse to wire/Stripe/deploy.
 
-**Last updated:** Sep 15, 2026 (Grok session)
+**Last updated:** Sep 15, 2026 morning PDT (Grok session)
 
 ---
 
@@ -59,6 +59,7 @@ Reps is the Kill Tony Monday-night energy productized: put in the reps, get told
 │   ├── autopsy.js
 │   ├── clinic.js
 │   ├── tts.js
+│   ├── create-checkout.js
 │   └── stripe-webhook.js
 └── CLAUDE-INSTRUCTIONS.md
 ```
@@ -146,10 +147,11 @@ Return JSON only matching the schema.
 
 ### Stripe notes
 - Create Product "Reps" + recurring Price $5/month.
-- Checkout Session mode=subscription.
-- Webhook: `customer.subscription.created/updated/deleted` → update user.plan / user.subscription_status.
+- Checkout Session mode=subscription. Stub: `functions/api/create-checkout.js`.
+- Webhook stub: `functions/api/stripe-webhook.js`.
+- Events: `customer.subscription.created/updated/deleted`, `checkout.session.completed`.
 - Client `startRepsCheckout()` hits `/api/create-checkout`.
-- Until wired, redirect to `/roast-pro` is the placeholder.
+- Until wired, redirect to `/pricing` is the placeholder.
 - Do not flip live billing from this pack.
 
 ### Paywall CSS stub
@@ -285,7 +287,7 @@ Tag: 'They still get more laughs. They're unionizing.'
 Button: 'I pay them five bucks a month. That's my own ransom.'  
 You died because you explained the product instead of becoming the product."
 
-### Fifth demo bit (Sep 15 add)
+### Fifth demo bit
 **Bit:** "I moved to Sacramento because rent is cheap and so is the crowd."
 
 **Trailer Guy:**  
@@ -294,6 +296,16 @@ Try: 'Rent's cheap. So is the applause. I signed a lease on both.'
 Tag: 'The landlord clapped. The room asked for a deposit.'  
 Button: 'I paid first, last, and a two-drink minimum.'  
 You died because you roasted the room instead of the lease."
+
+### Sixth demo bit (Sep 15 morning)
+**Bit:** "I charge five bucks a month to tell comics why they suck."
+
+**Trailer Guy:**  
+"That's a business card, not a bit. You priced the insult. Price is setup. The punch is that they pay you to hear it again.  
+Try: 'Five bucks a month and I'll tell you why you died. That's cheaper than a friend who lies.'  
+Tag: 'The friend still charges a two-drink minimum.'  
+Button: 'Cancel anytime. The silence doesn't.'  
+You died because you pitched the product instead of roasting the customer — which is you."
 
 ---
 
@@ -307,7 +319,18 @@ You died because you roasted the room instead of the lease."
 7. Demo autopsy page live at `/autopsy`
 8. Flesh out `functions/api/*` stubs into real Workers (keys in env only)
 
-## 6. DO NOT TOUCH
+## 6. CLAUDE ACCEPTANCE CHECKLIST (do not ship until these pass in preview)
+- [ ] Fourth anonymous roast returns 402 and shows the paywall modal
+- [ ] Clearing localStorage then signing up still carries the 3-roast lifetime count
+- [ ] Paid Reps user can roast 10 times; 11th is 429 with Fast Joke Fix copy
+- [ ] `/api/tts` refuses unpaid users; never leaks ElevenLabs key to the client
+- [ ] Second autopsy in the same ISO week is 429 Monday copy
+- [ ] Clinic rejects 6th punchline and unpaid users
+- [ ] Checkout stub does not create a live Stripe charge
+- [ ] Webhook verifies signature before writing plan status
+- [ ] No identity-roast path exists in prompts
+
+## 7. DO NOT TOUCH
 - Punch-up-only policy
 - Free Redline Engine / lessons / games
 - Existing Vault + $19 Fast Joke Fix
