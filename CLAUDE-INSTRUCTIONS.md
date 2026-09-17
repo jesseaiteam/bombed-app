@@ -3,7 +3,7 @@
 
 **Goal:** Turn the free-everything site into a hard-capped free tier + $5/month **Reps** flagship. Scarcity + teaching = money. Keep Redline Engine, lessons, and games as the free hook. Do NOT deploy live from this pack — generate the code and leave it for Jesse to wire/Stripe/deploy.
 
-**Last updated:** Sep 15, 2026 morning PDT (Grok session)
+**Last updated:** Sep 17, 2026 morning PDT (Grok session)
 
 ---
 
@@ -107,6 +107,21 @@ Worker stubs now live under `functions/api/` — implement, do not deploy.
 - Server checks `isPaidReps` (or Fast Joke Fix one-time entitlement) before calling ElevenLabs.
 - Cache audio by hash of (text + voiceId) in R2; return CDN URL.
 - Voice ID: Trailer Guy (env `TRAILER_GUY_VOICE_ID`).
+
+```javascript
+// client stub
+async function playRoastVoice(text, voiceId) {
+  const res = await fetch('/api/tts', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ text, voiceId: voiceId || 'TRAILER_GUY' })
+  });
+  if (res.status === 402) { showPaywall(); return; }
+  const { url } = await res.json();
+  const audio = new Audio(url);
+  return audio.play();
+}
+```
 
 ### Autopsy submission flow
 **Client:** `window.BombedReps.submitAutopsy(bit, target)` → POST `/api/autopsy`
@@ -297,7 +312,7 @@ Tag: 'The landlord clapped. The room asked for a deposit.'
 Button: 'I paid first, last, and a two-drink minimum.'  
 You died because you roasted the room instead of the lease."
 
-### Sixth demo bit (Sep 15 morning)
+### Sixth demo bit
 **Bit:** "I charge five bucks a month to tell comics why they suck."
 
 **Trailer Guy:**  
@@ -306,6 +321,16 @@ Try: 'Five bucks a month and I'll tell you why you died. That's cheaper than a f
 Tag: 'The friend still charges a two-drink minimum.'  
 Button: 'Cancel anytime. The silence doesn't.'  
 You died because you pitched the product instead of roasting the customer — which is you."
+
+### Seventh demo bit (Sep 17)
+**Bit:** "I married a robot so I could lose arguments in HD."
+
+**Trailer Guy:**  
+"Cute premise, soft landing. 'In HD' is a tech joke wearing a marriage joke's jacket. Pick one enemy.  
+Try: 'I married a robot. She wins every fight and still asks if I want to talk about it.'  
+Tag: 'I said no. She generated a recap anyway.'  
+Button: 'Now my divorce papers have a changelog.'  
+You died because you punched the resolution instead of the relationship."
 
 ---
 
