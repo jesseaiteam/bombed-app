@@ -15,6 +15,7 @@ AI comedy platform and stand-up training ground by Jesse Salas (Sacramento).
 | File | Purpose |
 |------|---------|
 | `CLAUDE-INSTRUCTIONS.md` | Full feature spec, pseudocode, pricing copy, autopsy demo, build order, Stripe notes |
+| `SESSION-NOTES-2026-09-18.md` | This session's Notion fallback + 8th autopsy demo |
 | `reps-tier.js` | Paywall, free-cap logic, voice/autopsy/clinic client stubs |
 | `autopsy.html` | Demo autopsy page + submit form |
 | `autopsy.js` | Form handler for autopsy submissions |
@@ -30,7 +31,8 @@ AI comedy platform and stand-up training ground by Jesse Salas (Sacramento).
 4. Copy the generated code into your Cloudflare Pages project / this repo.
 
 ## Status
-- Claude pack refreshed: **Sep 17, 2026 (morning PDT session)**
+- Claude pack refreshed: **Sep 18, 2026 (morning PDT session)**
+- Notion page could not be written (connector needs re-auth). Use this repo + Drive copy.
 - Free cap = 3 lifetime text-only roasts
 - Reps = $5/mo · 10 voice roasts · 1 weekly autopsy · punchline clinic
 - Stubs in `functions/api/` — not live, do not flip billing
