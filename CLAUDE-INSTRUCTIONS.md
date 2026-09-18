@@ -3,7 +3,9 @@
 
 **Goal:** Turn the free-everything site into a hard-capped free tier + $5/month **Reps** flagship. Scarcity + teaching = money. Keep Redline Engine, lessons, and games as the free hook. Do NOT deploy live from this pack — generate the code and leave it for Jesse to wire/Stripe/deploy.
 
-**Last updated:** Sep 17, 2026 morning PDT (Grok session)
+**Last updated:** Sep 18, 2026 morning PDT (Grok session)
+
+**Archive note:** The Notion page titled *BOMBED.app - Comedy Platform Plan & Improvements* could not be written this session (Notion connector needs re-auth). This file is the live spec. Mirror: `SESSION-NOTES-2026-09-18.md` + Google Doc of the same title.
 
 ---
 
@@ -331,6 +333,25 @@ Try: 'I married a robot. She wins every fight and still asks if I want to talk a
 Tag: 'I said no. She generated a recap anyway.'  
 Button: 'Now my divorce papers have a changelog.'  
 You died because you punched the resolution instead of the relationship."
+
+### Eighth demo bit (Sep 18)
+**Bit:** "I host a comedy club in my phone and still can't get a Saturday."
+
+**Trailer Guy:**  
+"That's a calendar complaint wearing a club jacket. Saturday is setup. The punch is that the room is in your pocket and still empty.  
+Try: 'I built a club that fits in my pocket. Saturday still won't come in.'  
+Tag: 'The bots showed up. They don't drink. The two-drink minimum is me.'  
+Button: 'I put myself on the list. The list is also me.'  
+You died because you begged for a booking instead of roasting the venue — which is you."
+
+- **Setup:** Pocket club vs real Saturday. Clear.
+- **Surprise:** Missing. You announced the absence.
+- **Punch:** Soft. Calendar joke, no turn.
+- **Tags:** None.
+- **Button:** None.
+- **Verdict:** Died begging the calendar. Make the pocket the room and lose on purpose.
+- **Fixed 1:** "I built a club that fits in my pocket. Saturday still won't come in."
+- **Fixed 2:** "I built a club that fits in my pocket. Saturday still won't come in. The bots showed up. They don't drink. The two-drink minimum is me. I put myself on the list. The list is also me."
 
 ---
 
