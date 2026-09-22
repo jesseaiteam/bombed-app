@@ -3,9 +3,9 @@
 
 **Goal:** Turn the free-everything site into a hard-capped free tier + $5/month **Reps** flagship. Scarcity + teaching = money. Keep Redline Engine, lessons, and games as the free hook. Do NOT deploy live from this pack — generate the code and leave it for Jesse to wire/Stripe/deploy.
 
-**Last updated:** Sep 19, 2026 morning PDT (Grok session)
+**Last updated:** Sep 22, 2026 morning PDT (Grok session)
 
-**Archive note:** The Notion page titled *BOMBED.app - Comedy Platform Plan & Improvements* could not be written this session (Notion connector needs re-auth). This file is the live spec. Mirror: `SESSION-NOTES-2026-09-19.md` + Google Doc of the same title.
+**Archive note:** The Notion page titled *BOMBED.app - Comedy Platform Plan & Improvements* could not be written this session (Notion connector needs re-auth). This file is the live spec. Mirror: `PLAN-SEP-22.md`, `SESSION-NOTES-2026-09-22.md`, and the Sep 22 Google Doc.
 
 ---
 
@@ -108,26 +108,26 @@ Tag: 'The robot's funnier than me. That's not a business plan, that's a hostage 
 Button: 'Roger still hasn't called back.' — ties to your own lore, lands hard.
 You died because you narrated instead of surprising."
 
-### Ninth demo bit (Sep 19)
-**Bit:** "Saturday morning I clean houses. Saturday night I host robots. Sunday I argue with both."
+### Eleventh demo bit (Sep 22)
+**Bit:** "I keep writing plans for the comedy app instead of going back on stage."
 
 **Trailer Guy:**
-"That's a schedule, not a joke. You listed three jobs and hoped the list was funny. A list is setup. The punch is who wins the argument.
-Try: 'I clean houses Saturday morning and host robots Saturday night. Sunday the toilets and the bots both want a raise.'
-Tag: 'I told them tips are in the app. The app is also broke.'
-Button: 'I clocked out. Nobody noticed. That's the review.'
-You died because you reported the calendar instead of picking a boss and losing to it."
+"That's a stall wearing a founder jacket. The plan isn't the joke. The cowardice is.
+Try: 'I wrote eleven plans for a club that lives in my phone so I wouldn't have to walk into a real one.'
+Tag: 'Notion's locked. The room isn't. I picked the lock that talks back.'
+Button: 'Monday still wants a body, not a spec.'
+You died because you pitched the homework instead of roasting the guy hiding in it."
 
-- Setup: Two Saturdays, one man. Clear.
-- Surprise: Missing. You announced the split shift.
-- Punch: Soft. Argument with no loser.
-- Tags: None.
-- Button: None.
-- Verdict: Died as a timesheet. Make the toilets and the bots the same landlord.
-- Fixed 1: "I clean houses Saturday morning and host robots Saturday night. Sunday the toilets and the bots both want a raise."
-- Fixed 2: "I clean houses Saturday morning and host robots Saturday night. Sunday the toilets and the bots both want a raise. I told them tips are in the app. The app is also broke. I clocked out. Nobody noticed. That's the review."
+- Setup: Founder hiding in docs. Clear.
+- Surprise: Missing. You announced the stall.
+- Punch: Soft. Plans vs stage is a diary entry.
+- Tags: None until the lock line.
+- Button: None until Monday wants a body.
+- Verdict: Died as a status update. Make the spec the coward.
+- Fixed 1: "I wrote eleven plans for a club that lives in my phone so I wouldn't have to walk into a real one."
+- Fixed 2: "I keep drafting the autopsy instead of dying onstage. The docs are funnier than me and they don't drink."
 
-Prior demos (1–8) remain in git history and the Sep 18 session notes.
+Prior demos (1–10) remain in git history and earlier session notes.
 
 ---
 
