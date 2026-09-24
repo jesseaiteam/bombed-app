@@ -3,9 +3,9 @@
 
 **Goal:** Turn the free-everything site into a hard-capped free tier + $5/month **Reps** flagship. Scarcity + teaching = money. Keep Redline Engine, lessons, and games as the free hook. Do NOT deploy live from this pack — generate the code and leave it for Jesse to wire/Stripe/deploy.
 
-**Last updated:** Sep 23, 2026 morning PDT (Grok session)
+**Last updated:** Sep 24, 2026 morning PDT (Grok session)
 
-**Archive note:** The Notion page titled *BOMBED.app - Comedy Platform Plan & Improvements* could not be written this session (Notion connector needs re-auth). This file is the live spec. Mirror: `PLAN-SEP-23.md`, `SESSION-NOTES-2026-09-23.md`, and the Sep 23 Google Doc.
+**Archive note:** The Notion page titled *BOMBED.app - Comedy Platform Plan & Improvements* could not be written this session (Notion connector needs re-auth). This file is the live spec. Mirror: `PLAN-SEP-24.md`, `SESSION-NOTES-2026-09-24.md`, and the Sep 24 Google Doc.
 
 ---
 
@@ -108,26 +108,26 @@ Tag: 'The robot's funnier than me. That's not a business plan, that's a hostage 
 Button: 'Roger still hasn't called back.' — ties to your own lore, lands hard.
 You died because you narrated instead of surprising."
 
-### Twelfth demo bit (Sep 23)
-**Bit:** "I keep asking Grok to write the club instead of walking into one."
+### Thirteenth demo bit (Sep 24)
+**Bit:** "I treat Thursday like a booking — Grok files the plan, I stay home and call it work."
 
 **Trailer Guy:**
-"That's a booking agent made of prompts. The bot isn't the joke. You hiding behind the bot is.
-Try: 'I pay a robot five bucks a month to tell me why I won't leave the house.'
-Tag: 'The autopsy is louder than the mic. That's not training, that's a hiding place with a login.'
-Button: 'Wednesday still wants a body, not another pack.'
-You died because you roasted the workflow instead of the coward running it."
+"That's a timesheet for cowardice. You didn't book a room. You booked a document.
+Try: 'I clock Thursday as a show date, then send a robot onstage in my place.'
+Tag: 'The pack is loud. The room is empty. That's not a career, that's a filing cabinet with a mic stand.'
+Button: 'Sacramento still has a Wednesday. Bring a body.'
+You died because you roasted the calendar instead of the guy hiding behind it."
 
-- Setup: Founder hiding in Grok packs. Clear.
-- Surprise: Missing. You announced the stall again.
-- Punch: Soft. Meta-process is a status update.
-- Tags: None until the hiding-place line.
+- Setup: Founder treating a Grok pack like a booking. Clear.
+- Surprise: Missing. You announced the stall as labor.
+- Punch: Soft. Calendar confession is a status update.
+- Tags: None until the filing-cabinet line.
 - Button: None until Wednesday wants a body.
-- Verdict: Died as a workflow confession. Make the pack the coward.
-- Fixed 1: "I pay a robot five bucks a month to tell me why I won't leave the house."
-- Fixed 2: "I built a club that never closes so I never have to open a real door."
+- Verdict: Died as a timesheet. Make the pack the coward.
+- Fixed 1: "I clock Thursday as a show date, then send a robot onstage in my place."
+- Fixed 2: "My week has seven open mics and zero bodies. The calendar is funnier than I am."
 
-Prior demos (1–11) remain in git history and earlier session notes.
+Prior demos (1–12) remain in git history and earlier session notes.
 
 ---
 
