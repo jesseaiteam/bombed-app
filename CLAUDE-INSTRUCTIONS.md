@@ -3,9 +3,9 @@
 
 **Goal:** Turn the free-everything site into a hard-capped free tier + $5/month **Reps** flagship. Scarcity + teaching = money. Keep Redline Engine, lessons, and games as the free hook. Do NOT deploy live from this pack — generate the code and leave it for Jesse to wire/Stripe/deploy.
 
-**Last updated:** Sep 25, 2026 morning PDT (Grok session)
+**Last updated:** Sep 26, 2026 morning PDT (Grok session)
 
-**Archive note:** The Notion page titled *BOMBED.app - Comedy Platform Plan & Improvements* could not be written this session (Notion connector needs re-auth). This file is the live spec. Mirror: `PLAN-SEP-25.md`, `SESSION-NOTES-2026-09-25.md`, and the Sep 25 Google Doc.
+**Archive note:** The Notion page titled *BOMBED.app - Comedy Platform Plan & Improvements* could not be written this session (Notion connector needs re-auth). This file is the live spec. Mirror: `PLAN-SEP-26.md`, `SESSION-NOTES-2026-09-26.md`, and the Sep 26 Google Doc.
 
 ---
 
@@ -108,26 +108,26 @@ Tag: 'The robot's funnier than me. That's not a business plan, that's a hostage 
 Button: 'Roger still hasn't called back.' — ties to your own lore, lands hard.
 You died because you narrated instead of surprising."
 
-### Fourteenth demo bit (Sep 25)
-**Bit:** "I keep filing Friday packs so I never have to charge five dollars or walk into a Wednesday."
+### Fifteenth demo bit (Sep 26)
+**Bit:** "I spend Saturday morning writing another Claude pack so I never have to do Saturday night."
 
 **Trailer Guy:**
-"That's a subscription to your own stall. You built a paywall and then hid behind the notes about the paywall.
-Try: 'I wrote fourteen plans for a five-dollar club so I wouldn't have to sell the first ticket.'
-Tag: 'The archive is fat. The checkout is empty. That's not product work, that's a diary with a repo.'
-Button: 'Sacramento still has a door. Bring five bucks and a body.'
-You died because you roasted the paperwork instead of the guy who won't flip test mode off."
+"That's rehearsal for a show you keep canceling. You booked the robot, not the room.
+Try: 'I treat Saturday like a writing room so I don't have to treat Saturday like a stage.'
+Tag: 'Fifteen plans. Still test mode. That's not a launch, that's a support group with git history.'
+Button: 'The door in Sacramento is open. Bring a body, not another markdown file.'
+You died because you roasted the calendar instead of the guy hiding behind it."
 
-- Setup: Founder stacking plan files instead of charging. Clear.
-- Surprise: Missing. You announced the stall as diligence.
-- Punch: Soft. Friday paperwork is a status update.
-- Tags: None until the diary-with-a-repo line.
-- Button: None until the door wants five bucks and a body.
-- Verdict: Died as a filing habit. Make the pack the coward.
-- Fixed 1: "I wrote fourteen plans for a five-dollar club so I wouldn't have to sell the first ticket."
-- Fixed 2: "I treat Stripe like a loaded gun and Notion like a priest. Neither one books the room."
+- Setup: Founder using Saturday morning to file plans instead of Saturday night to bomb.
+- Surprise: Missing. You announced the stall as craft.
+- Punch: Soft. "Writing another pack" is a status update.
+- Tags: None until the support-group-with-git-history line.
+- Button: None until the door wants a body, not markdown.
+- Verdict: Died as a calendar habit. Make the Saturday pack the coward.
+- Fixed 1: "I treat Saturday like a writing room so I don't have to treat Saturday like a stage."
+- Fixed 2: "I pay five bucks a month in theory and zero dollars in public. The theory is funnier."
 
-Prior demos (1–13) remain in git history and earlier session notes.
+Prior demos (1–14) remain in git history and earlier session notes.
 
 ---
 
