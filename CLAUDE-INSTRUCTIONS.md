@@ -3,9 +3,9 @@
 
 **Goal:** Turn the free-everything site into a hard-capped free tier + $5/month **Reps** flagship. Scarcity + teaching = money. Keep Redline Engine, lessons, and games as the free hook. Do NOT deploy live from this pack — generate the code and leave it for Jesse to wire/Stripe/deploy.
 
-**Last updated:** Sep 27, 2026 morning PDT (Grok session)
+**Last updated:** Sep 28, 2026 morning PDT (Grok session)
 
-**Archive note:** The Notion page titled *BOMBED.app - Comedy Platform Plan & Improvements* could not be written this session (Notion connector needs re-auth). This file is the live spec. Mirror: `PLAN-SEP-27.md`, `SESSION-NOTES-2026-09-27.md`, and the Sep 27 Google Doc.
+**Archive note:** The Notion page titled *BOMBED.app - Comedy Platform Plan & Improvements* could not be written this session (Notion connector needs re-auth). This file is the live spec. Mirror: `PLAN-SEP-28.md`, `SESSION-NOTES-2026-09-28.md`, and the Sep 28 Google Doc.
 
 ---
 
@@ -108,26 +108,26 @@ Tag: 'The robot's funnier than me. That's not a business plan, that's a hostage 
 Button: 'Roger still hasn't called back.' — ties to your own lore, lands hard.
 You died because you narrated instead of surprising."
 
-### Sixteenth demo bit (Sep 27)
-**Bit:** "I spend Sunday morning filing another Claude pack so I can skip the Sunday night room and still call it church."
+### Seventeenth demo bit (Sep 28 — Monday)
+**Bit:** "It's Monday and I opened the repo like it was a green room. No crowd. Just another plan with my name on it."
 
 **Trailer Guy:**
-"That's confession without a congregation. You brought a robot to mass and left the mic in the parking lot.
-Try: 'I treat Sunday like church so I don't have to treat Sunday like a stage.'
-Tag: 'Sixteen plans. Still test mode. That's not devotion, that's a prayer circle with a git log.'
-Button: 'Sacramento's doors are open. Bring a body, not another Sunday sermon in markdown.'
-You died because you called the stall holy."
+"That's a soundcheck for a room you still won't enter. You treated git like a stage manager and Monday like a note card.
+Try: 'I treat Monday like a green room so I never have to treat Monday like a mic.'
+Tag: 'Seventeen packs. Still test mode. That's not a career, that's a dress rehearsal with version control.'
+Button: 'The door in Sacramento is unlocked. Bring a body, not another Monday markdown.'
+You died because you called the stall a show."
 
-- Setup: Founder using Sunday morning plans as a stand-in for Sunday night stage time.
-- Surprise: Missing. You dressed the stall as worship.
-- Punch: Soft. "Filing another pack" is a timesheet.
-- Tags: None until the prayer-circle-with-a-git-log line.
-- Button: None until the door wants a body, not a sermon.
-- Verdict: Died as piety. Make the Sunday pack the coward.
-- Fixed 1: "I treat Sunday like church so I don't have to treat Sunday like a stage."
-- Fixed 2: "I tithe five dollars in test mode and zero minutes of silence in a real room."
+- Setup: Founder using Monday repo work as a stand-in for a real room.
+- Surprise: Missing. You dressed the stall as a green room.
+- Punch: Soft. "Another plan with my name on it" is a timesheet.
+- Tags: None until the dress-rehearsal-with-version-control line.
+- Button: None until the door wants a body, not markdown.
+- Verdict: Died as production. Make Monday the coward.
+- Fixed 1: "I treat Monday like a green room so I never have to treat Monday like a mic."
+- Fixed 2: "I punch in at the repo and punch out before the first heckle."
 
-Prior demos (1–15) remain in git history and earlier session notes.
+Prior demos (1–16) remain in git history and earlier session notes.
 
 ---
 
