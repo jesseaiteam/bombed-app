@@ -3,9 +3,9 @@
 
 **Goal:** Turn the free-everything site into a hard-capped free tier + $5/month **Reps** flagship. Scarcity + teaching = money. Keep Redline Engine, lessons, and games as the free hook. Do NOT deploy live from this pack — generate the code and leave it for Jesse to wire/Stripe/deploy.
 
-**Last updated:** Sep 28, 2026 morning PDT (Grok session)
+**Last updated:** Sep 30, 2026 morning PDT (Grok session)
 
-**Archive note:** The Notion page titled *BOMBED.app - Comedy Platform Plan & Improvements* could not be written this session (Notion connector needs re-auth). This file is the live spec. Mirror: `PLAN-SEP-28.md`, `SESSION-NOTES-2026-09-28.md`, and the Sep 28 Google Doc.
+**Archive note:** The Notion page titled *BOMBED.app - Comedy Platform Plan & Improvements* could not be written this session (Notion connector needs re-auth). This file is the live spec. Mirror: `PLAN-SEP-30.md`, `SESSION-NOTES-2026-09-30.md`, and the Sep 30 Google Doc.
 
 ---
 
@@ -108,26 +108,26 @@ Tag: 'The robot's funnier than me. That's not a business plan, that's a hostage 
 Button: 'Roger still hasn't called back.' — ties to your own lore, lands hard.
 You died because you narrated instead of surprising."
 
-### Seventeenth demo bit (Sep 28 — Monday)
-**Bit:** "It's Monday and I opened the repo like it was a green room. No crowd. Just another plan with my name on it."
+### Nineteenth demo bit (Sep 30 — Wednesday)
+**Bit:** "It's Wednesday and I'm still filing the plan instead of filing onto a list. Midweek. Mid-life. Mid-mic."
 
 **Trailer Guy:**
-"That's a soundcheck for a room you still won't enter. You treated git like a stage manager and Monday like a note card.
-Try: 'I treat Monday like a green room so I never have to treat Monday like a mic.'
-Tag: 'Seventeen packs. Still test mode. That's not a career, that's a dress rehearsal with version control.'
-Button: 'The door in Sacramento is unlocked. Bring a body, not another Monday markdown.'
-You died because you called the stall a show."
+"That's a calendar apology. You stacked three mids like they were a punch. They aren't. They're a stall.
+Try: 'I write the set so I never have to say it.'
+Tag: 'Nineteen packs. Still test mode. That's not reps, that's a group chat with yourself.'
+Button: 'Sacramento has a Wednesday. Bring a body.'
+You died because you called the filing cabinet a stage."
 
-- Setup: Founder using Monday repo work as a stand-in for a real room.
-- Surprise: Missing. You dressed the stall as a green room.
-- Punch: Soft. "Another plan with my name on it" is a timesheet.
-- Tags: None until the dress-rehearsal-with-version-control line.
-- Button: None until the door wants a body, not markdown.
-- Verdict: Died as production. Make Monday the coward.
-- Fixed 1: "I treat Monday like a green room so I never have to treat Monday like a mic."
-- Fixed 2: "I punch in at the repo and punch out before the first heckle."
+- Setup: Founder using midweek paperwork as a stand-in for a real list.
+- Surprise: Missing. Three adjectives in a trench coat.
+- Punch: Soft. Mid-mic is a shrug.
+- Tags: None until the group-chat-with-yourself line.
+- Button: None until Sacramento wants a body.
+- Verdict: Died as production. Make Wednesday the coward.
+- Fixed 1: "I write the set so I never have to say it."
+- Fixed 2: "I book the autopsy and skip the room that needs one."
 
-Prior demos (1–16) remain in git history and earlier session notes.
+Prior demos (1–18) remain in git history and earlier session notes.
 
 ---
 
