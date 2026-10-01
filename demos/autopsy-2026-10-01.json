@@ -1,0 +1,20 @@
+{
+  "id": "autopsy-demo-20",
+  "date": "2026-10-01",
+  "weekday": "Thursday",
+  "voice": "Trailer Guy",
+  "bit": "It's Thursday and I'm still packing the autopsy instead of dying on a Thursday mic. Twenty packs. Zero rooms.",
+  "target": "founder who files the plan so he never has to file onto a list",
+  "trailerGuy": "That's a shipping label on a corpse. You packed the death and skipped the stage. 'Twenty packs' is a receipt, not a punch. Cut the count. Try: 'I autopsy the joke so I never have to bomb the room.' Tag: 'Thursday wants a body and I sent it a PDF.' Button: 'Sacramento still has a Thursday. Bring the bit, not the folder.' You died because you called the archive a set.",
+  "setup": "Founder using Thursday paperwork as a stand-in for a real mic.",
+  "surprise": "Missing. The pack count is a stall dressed like a confession.",
+  "punch": "Soft. Zero rooms is a shrug. The swerve has to be the cowardice, not the calendar.",
+  "tags": "None until 'Thursday wants a body and I sent it a PDF.'",
+  "button": "None until Sacramento still has a Thursday.",
+  "verdict": "Died as production. Make Thursday the coward, not the filing cabinet.",
+  "fixedVersions": [
+    "I autopsy the joke so I never have to bomb the room.",
+    "I book the autopsy and skip the room that needs one."
+  ],
+  "rails": "Punch-up only. No identity roast. Adult language ok."
+}
