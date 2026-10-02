@@ -1,0 +1,20 @@
+{
+  "id": "autopsy-demo-21",
+  "date": "2026-10-02",
+  "weekday": "Friday",
+  "voice": "Trailer Guy",
+  "bit": "It's Friday and I'm still writing the pack instead of dying on a Friday mic. Twenty-one folders. The weekend starts and I haven't died once.",
+  "target": "founder who treats Friday like a changelog instead of a room",
+  "trailerGuy": "Friday is the room that forgives drunk uncles, not founders with a changelog. You counted the folders and called it a set. Cut the twenty-one. Try: 'I spent Friday writing the autopsy so the joke wouldn't have to die in public.' Tag: 'The weekend showed up and I handed it a spec.' Button: 'Sacramento still has a Friday. The mic doesn't read markdown.' You died because you filed the bomb and skipped the blast.",
+  "setup": "Founder using Friday paperwork as a stand-in for a real mic.",
+  "surprise": "Missing. The folder count is a stall dressed like a confession.",
+  "punch": "Soft. 'Haven't died once' is a brag about avoiding the job.",
+  "tags": "None until 'The weekend showed up and I handed it a spec.'",
+  "button": "None until Sacramento still has a Friday.",
+  "verdict": "Died as production. Make Friday the coward, not the calendar.",
+  "fixedVersions": [
+    "I spent Friday writing the autopsy so the joke wouldn't have to die in public.",
+    "I booked the weekend and left the mic for somebody with a spine."
+  ],
+  "rails": "Punch-up only. No identity roast. Adult language ok."
+}
