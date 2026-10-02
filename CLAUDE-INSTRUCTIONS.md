@@ -3,9 +3,9 @@
 
 **Goal:** Turn the free-everything site into a hard-capped free tier + $5/month **Reps** flagship. Scarcity + teaching = money. Keep Redline Engine, lessons, and games as the free hook. Do NOT deploy live from this pack — generate the code and leave it for Jesse to wire/Stripe/deploy.
 
-**Last updated:** Oct 1, 2026 morning PDT (Grok session)
+**Last updated:** Oct 2, 2026 morning PDT (Grok session)
 
-**Archive note:** The Notion page titled *BOMBED.app - Comedy Platform Plan & Improvements* still cannot be written (Notion connector is not connected). This file is the live spec. Mirror: `PLAN-OCT-01.md`, `SESSION-NOTES-2026-10-01.md`, `functions/api/limits.js`, `demos/autopsy-2026-10-01.json`, and the Oct 1 Google Doc.
+**Archive note:** The Notion page titled *BOMBED.app - Comedy Platform Plan & Improvements* still cannot be written (Notion connector is not connected). This file is the live spec. Mirror: `PLAN-OCT-02.md`, `SESSION-NOTES-2026-10-02.md`, `functions/api/limits.js`, `demos/autopsy-2026-10-02.json`, and the Oct 2 Google Doc.
 
 ---
 
@@ -28,7 +28,7 @@ Reps is the Kill Tony Monday-night energy productized: put in the reps, get told
 |---------|----------------|
 | **Voice Roasts** | 10 per calendar month (UTC). Two characters roast the target. Full ElevenLabs Trailer Guy (or per-character) TTS. Audio cached & downloadable. 11th roast = **429** + Fast Joke Fix offer. |
 | **Weekly Joke Autopsy** | 1 submission per ISO week. User pastes bit + optional target/context. Trailer Guy returns structured breakdown (Setup / Surprise / Punch / Tags / Button / Verdict + 2 fixed versions). Second in the same week = **429** Monday copy. |
-| **Punchline Clinic** | 1–5 weak punchlines per session. Each gets 3 stronger rewrites + one-line logic why the original died. 6th line = 400. Unpaid = 402. |
+| **Punchline Clinic** | 1–5 weak punchlines per session, max 5 lines per UTC day. Each gets 3 stronger rewrites + one-line logic why the original died. 6th line in one request = 400. Over the daily cap = 429. Unpaid = 402. |
 | **Saved Wins** | Local + account-synced list of best rewrites & autopsy fixes. Export as text/JSON. |
 | **Caption / Hook tools** | Quick generators for social clips from winning lines. |
 | **Account required** | Yes. Stripe subscription status checked server-side. Client `isPaidReps` is a hint, never the lock. |
@@ -49,12 +49,12 @@ Reps is the Kill Tony Monday-night energy productized: put in the reps, get told
 
 Live files:
 - `reps-tier.js` — client gate, paywall modal, TTS + autopsy + clinic callers
-- `functions/api/limits.js` — **new Oct 1**. One quota module. Import it. Do not re-copy counters.
+- `functions/api/limits.js` — one quota module. Import it. Do not re-copy counters. Oct 2 added `gateClinic` / `markClinic`.
 - `functions/api/roast.js`, `tts.js`, `autopsy.js`, `clinic.js`, `create-checkout.js`, `stripe-webhook.js`
-- `pricing.html`, `autopsy.html`, `demos/autopsy-2026-10-01.json`
+- `pricing.html`, `autopsy.html`, `demos/autopsy-2026-10-02.json`
 
 ```javascript
-import { gateRoast, bumpRoast, gateAutopsy, markAutopsy, isActiveReps } from './limits.js';
+import { gateRoast, bumpRoast, gateAutopsy, markAutopsy, gateClinic, markClinic, isActiveReps } from './limits.js';
 
 // /api/roast
 const gate = await gateRoast(env, user);
@@ -77,13 +77,20 @@ const report = await trailerGuyJson(bit, target); // forced JSON schema
 await markAutopsy(env, gate.key);
 return json(report);
 
+// /api/clinic
+const clinic = await gateClinic(env, user, body.lines.length);
+if (clinic instanceof Response) return clinic;
+const rewrites = await clinicRewrite(body.lines); // 3 alts + why each died
+await markClinic(env, clinic.key, clinic.lines);
+return json({ ok: true, rewrites });
+
 // Stripe — test mode
 // create-checkout: mode subscription, price $5 recurring, success/cancel URLs
 // webhook: verify signature, then set plan=reps / subscription_status on checkout.session.completed,
 // customer.subscription.updated, customer.subscription.deleted
 ```
 
-KV binding: `BOMBED_LIMITS`. Keys: `roast:{userId}:{YYYY-MM}`, `autopsy:{userId}:{YYYY-Www}`.
+KV binding: `BOMBED_LIMITS`. Keys: `roast:{userId}:{YYYY-MM}`, `autopsy:{userId}:{YYYY-Www}`, `clinic:{userId}:{YYYY-MM-DD}`.
 
 ---
 
@@ -122,26 +129,26 @@ Tag: 'The robot's funnier than me. That's not a business plan, that's a hostage 
 Button: 'Roger still hasn't called back.' — ties to your own lore, lands hard.
 You died because you narrated instead of surprising."
 
-### Twentieth demo bit (Oct 1 — Thursday)
-**Bit:** "It's Thursday and I'm still packing the autopsy instead of dying on a Thursday mic. Twenty packs. Zero rooms."
+### Twenty-first demo bit (Oct 2 — Friday)
+**Bit:** "It's Friday and I'm still writing the pack instead of dying on a Friday mic. Twenty-one folders. The weekend starts and I haven't died once."
 
 **Trailer Guy:**
-"That's a shipping label on a corpse. You packed the death and skipped the stage. 'Twenty packs' is a receipt, not a punch.
-Try: 'I autopsy the joke so I never have to bomb the room.'
-Tag: 'Thursday wants a body and I sent it a PDF.'
-Button: 'Sacramento still has a Thursday. Bring the bit, not the folder.'
-You died because you called the archive a set."
+"Friday is the room that forgives drunk uncles, not founders with a changelog. You counted the folders and called it a set.
+Try: 'I spent Friday writing the autopsy so the joke wouldn't have to die in public.'
+Tag: 'The weekend showed up and I handed it a spec.'
+Button: 'Sacramento still has a Friday. The mic doesn't read markdown.'
+You died because you filed the bomb and skipped the blast."
 
-- Setup: Founder using Thursday paperwork as a stand-in for a real mic.
-- Surprise: Missing. The pack count is a stall.
-- Punch: Soft. Zero rooms is a shrug.
-- Tags: None until the PDF line.
-- Button: None until Sacramento still has a Thursday.
-- Verdict: Died as production. Make Thursday the coward.
-- Fixed 1: "I autopsy the joke so I never have to bomb the room."
-- Fixed 2: "I book the autopsy and skip the room that needs one."
+- Setup: Founder using Friday paperwork as a stand-in for a real mic.
+- Surprise: Missing. The folder count is a stall.
+- Punch: Soft. Haven't died once is a brag about avoiding the job.
+- Tags: None until the spec line.
+- Button: None until Sacramento still has a Friday.
+- Verdict: Died as production. Make Friday the coward.
+- Fixed 1: "I spent Friday writing the autopsy so the joke wouldn't have to die in public."
+- Fixed 2: "I booked the weekend and left the mic for somebody with a spine."
 
-Machine-readable copy: `demos/autopsy-2026-10-01.json`. Prior demos (1–19) remain in git history and earlier session notes.
+Machine-readable copy: `demos/autopsy-2026-10-02.json`. Prior demos (1–20) remain in git history and earlier session notes.
 
 ---
 
@@ -150,9 +157,9 @@ Machine-readable copy: `demos/autopsy-2026-10-01.json`. Prior demos (1–19) rem
 2. Stripe Checkout for $5/mo Reps + webhook (test mode)
 3. Gate voice TTS behind paid status
 4. Autopsy form + /api/autopsy + weekly quota
-5. Punchline clinic endpoint
+5. Punchline clinic endpoint using `gateClinic`
 6. Pricing page copy + nav links (copy already in `pricing.html`)
-7. Demo autopsy page at /autopsy seeded with the toilet bit and the Oct 1 bit
+7. Demo autopsy page at /autopsy seeded with the toilet bit and the Oct 2 bit
 8. Flesh out functions/api stubs into real Workers (keys in env only)
 
 ## 6. CLAUDE ACCEPTANCE CHECKLIST
@@ -161,11 +168,12 @@ Machine-readable copy: `demos/autopsy-2026-10-01.json`. Prior demos (1–19) rem
 - [ ] Paid Reps user can roast 10 times; 11th is 429 with Fast Joke Fix copy
 - [ ] /api/tts refuses unpaid users; never leaks ElevenLabs key
 - [ ] Second autopsy in the same ISO week is 429 Monday copy
-- [ ] Clinic rejects 6th punchline and unpaid users
+- [ ] Clinic rejects a 6th line in one request (400) and unpaid users (402)
+- [ ] Clinic rejects a 6th line across the UTC day (429)
 - [ ] Checkout stub does not create a live Stripe charge
 - [ ] Webhook verifies signature before writing plan status
 - [ ] No identity-roast path exists in prompts
-- [ ] `demos/autopsy-2026-10-01.json` renders on the demo autopsy page
+- [ ] `demos/autopsy-2026-10-02.json` renders on the demo autopsy page
 
 ## 7. DO NOT TOUCH
 - Punch-up-only policy
