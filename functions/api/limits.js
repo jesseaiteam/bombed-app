@@ -5,6 +5,7 @@
 export const FREE_ROAST_CAP = 3;
 export const REPS_MONTHLY_ROASTS = 10;
 export const REPS_PRICE_USD = 5;
+export const CLINIC_DAILY_LINES = 5;
 
 export function json(data, status = 200) {
   return new Response(JSON.stringify(data), {
@@ -24,6 +25,10 @@ export function isoWeekKey(d = new Date()) {
 
 export function monthKey(d = new Date()) {
   return `${d.getUTCFullYear()}-${String(d.getUTCMonth() + 1).padStart(2, '0')}`;
+}
+
+export function dayKey(d = new Date()) {
+  return `${d.getUTCFullYear()}-${String(d.getUTCMonth() + 1).padStart(2, '0')}-${String(d.getUTCDate()).padStart(2, '0')}`;
 }
 
 export function isActiveReps(user) {
@@ -98,4 +103,32 @@ export async function gateAutopsy(env, user) {
 
 export async function markAutopsy(env, key) {
   await env.BOMBED_LIMITS.put(key, '1', { expirationTtl: 60 * 60 * 24 * 14 });
+}
+
+// lines: how many punchlines this request wants rewritten (1-5)
+export async function gateClinic(env, user, lines = 1) {
+  const n = Number(lines || 0);
+  if (!Number.isInteger(n) || n < 1 || n > CLINIC_DAILY_LINES) {
+    return json({ error: 'bad_lines', message: 'Clinic takes 1 to 5 lines. Sixth line is a new session, not a loophole.' }, 400);
+  }
+  if (!isActiveReps(user)) {
+    return json({ error: 'paywall', message: 'Punchline clinic is Reps. Free tier gets the open mic, not the rewrite.' }, 402);
+  }
+  const key = `clinic:${user.id}:${dayKey()}`;
+  const used = Number(await env.BOMBED_LIMITS.get(key) || 0);
+  if (used + n > CLINIC_DAILY_LINES) {
+    return json({
+      error: 'daily_cap',
+      used,
+      limit: CLINIC_DAILY_LINES,
+      message: 'You already ran 5 lines through the clinic today. Come back tomorrow with worse jokes.'
+    }, 429);
+  }
+  return { ok: true, key, used, lines: n };
+}
+
+export async function markClinic(env, key, add) {
+  const used = Number(await env.BOMBED_LIMITS.get(key) || 0) + Number(add || 0);
+  await env.BOMBED_LIMITS.put(key, String(used), { expirationTtl: 60 * 60 * 24 * 2 });
+  return used;
 }
