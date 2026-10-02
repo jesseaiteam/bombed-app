@@ -15,13 +15,14 @@ AI comedy platform and stand-up training ground by Jesse Salas (Sacramento).
 | File | Purpose |
 |------|---------|
 | `CLAUDE-INSTRUCTIONS.md` | Full feature spec, pseudocode, pricing copy, autopsy demos, build order |
-| `PLAN-SEP-27.md` | Latest dated plan snapshot |
-| `SESSION-NOTES-2026-09-27.md` | This session — Notion fallback + 16th autopsy demo |
+| `PLAN-OCT-02.md` | Latest dated plan snapshot |
+| `SESSION-NOTES-2026-10-02.md` | This session — Notion fallback + 21st autopsy demo |
 | `reps-tier.js` | Paywall, free-cap logic, voice/autopsy/clinic client stubs |
 | `autopsy.html` | Demo autopsy page + submit form |
 | `autopsy.js` | Form handler for autopsy submissions |
 | `pricing.html` | Copy-ready pricing / Reps landing stub |
 | `functions/api/` | Cloudflare Pages Function stubs |
+| `demos/autopsy-2026-10-02.json` | Friday sample autopsy |
 | `material/` | Extra Trailer Guy bit material |
 | `README.md` | This file |
 
@@ -32,10 +33,10 @@ AI comedy platform and stand-up training ground by Jesse Salas (Sacramento).
 4. Copy the generated code into your Cloudflare Pages project / this repo.
 
 ## Status
-- Claude pack refreshed: **Sep 27, 2026 (morning PDT)**
-- Notion page could not be written (connector needs re-auth). Use this repo + Drive copy.
+- Claude pack refreshed: **Oct 2, 2026 (morning PDT)**
+- Notion page could not be written (connector not connected). Use this repo + Drive copy.
 - Free cap = 3 lifetime text-only roasts
-- Reps = $5/mo · 10 voice roasts · 1 weekly autopsy · punchline clinic
+- Reps = $5/mo · 10 voice roasts · 1 weekly autopsy · punchline clinic (5 lines/day)
 - Stubs in `functions/api/` — not live, do not flip billing
 - **Do not deploy live from this pack.**
 
