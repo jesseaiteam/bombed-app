@@ -1,0 +1,22 @@
+{
+  "id": "autopsy-demo-22",
+  "date": "2026-10-03",
+  "weekday": "Saturday",
+  "isoWeek": "2026-W40",
+  "voice": "Trailer Guy",
+  "bit": "It's Saturday and the autopsy is still in a folder. Twenty-two packs. The club is open and I'm writing the lock.",
+  "target": "founder who treats Saturday like a spec instead of a room",
+  "trailerGuy": "Saturday is when the room is drunk enough to laugh at a bad premise and mean enough to bury one that explains itself. You counted packs again. Cut the twenty-two. Try: 'I spent Saturday writing the paywall so I wouldn't have to hear the silence.' Tag: 'The bar is open and I brought a spec.' Button: 'Sacramento still has a Saturday. The mic doesn't take pull requests.' You died because you filed the bomb and skipped the blast.",
+  "setup": "Founder using Saturday paperwork as a stand-in for a real mic.",
+  "surprise": "Missing. The pack count is a stall dressed like a confession.",
+  "punch": "Soft. 'Writing the lock' is a brag about avoiding the job.",
+  "tags": "None until 'The bar is open and I brought a spec.'",
+  "button": "None until Sacramento still has a Saturday.",
+  "verdict": "Died as production. Make Saturday the coward, not the calendar.",
+  "fixedVersions": [
+    "I spent Saturday writing the paywall so I wouldn't have to hear the silence.",
+    "The club opened and I locked the joke in a folder."
+  ],
+  "rails": "Punch-up only. No identity roast. Adult language ok.",
+  "weekNote": "Same ISO week as Friday Oct 2. A second live autopsy this week must 429."
+}
