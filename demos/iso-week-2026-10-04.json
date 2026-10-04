@@ -1,0 +1,17 @@
+{
+  "fixture": "iso-week-sunday-still-w40",
+  "dates": {
+    "2026-10-02": "2026-W40",
+    "2026-10-03": "2026-W40",
+    "2026-10-04": "2026-W40",
+    "2026-10-05": "2026-W41"
+  },
+  "assert": [
+    "isoWeekKey(Date.UTC(2026, 9, 4)) === isoWeekKey(Date.UTC(2026, 9, 3))",
+    "isoWeekKey(Date.UTC(2026, 9, 4)) === '2026-W40'",
+    "isoWeekKey(Date.UTC(2026, 9, 5)) === '2026-W41'"
+  ],
+  "autopsy": "second call in W40 returns 429 even on Sunday",
+  "clinic": "Sunday is a new dayKey, not a new week",
+  "roastMonth": "2026-10"
+}

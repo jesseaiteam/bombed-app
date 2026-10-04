@@ -1,0 +1,19 @@
+{
+  "date": "2026-10-04",
+  "weekday": "Sunday",
+  "isoWeek": "2026-W40",
+  "note": "Sunday does not open a new autopsy. Same folder as Saturday.",
+  "bit": "It's Sunday and I still haven't died in a room. The Saturday autopsy is a leftover. Twenty-three packs. Church got out. I stayed in the folder.",
+  "host": "Trailer Guy",
+  "setup": "It's Sunday and I still haven't died in a room.",
+  "surprise": "The Saturday autopsy is a leftover and I stayed in the folder.",
+  "punch": "I spent Sunday writing the lock so I wouldn't have to hear the room.",
+  "tags": ["The week ended and I brought a folder."],
+  "button": "Sacramento still has a Sunday. The mic doesn't take communion.",
+  "verdict": "Died as production. Make Sunday the coward.",
+  "fixedVersions": [
+    "I spent Sunday writing the lock so I wouldn't have to hear the room.",
+    "The week ended and I still hadn't bombed in public."
+  ],
+  "rails": "punch-up only. no identity roast. no slurs."
+}
