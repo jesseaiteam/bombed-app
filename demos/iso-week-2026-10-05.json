@@ -1,0 +1,14 @@
+{
+  "note": "Monday flip fixture. Do not deploy. Server clock is UTC.",
+  "cases": [
+    {"utc": "2026-10-04T16:20:00Z", "localPdt": "Sunday 9:20 AM", "week": "2026-W40", "month": "2026-10", "day": "2026-10-04"},
+    {"utc": "2026-10-05T06:59:00Z", "localPdt": "Sunday 11:59 PM", "week": "2026-W41", "month": "2026-10", "day": "2026-10-05", "trap": "Sacramento still says Sunday. Key already flipped."},
+    {"utc": "2026-10-05T16:20:00Z", "localPdt": "Monday 9:20 AM", "week": "2026-W41", "month": "2026-10", "day": "2026-10-05"}
+  ],
+  "must": [
+    "W40 autopsy does not block W41",
+    "unspent W40 does not stack onto Monday",
+    "roast counter stays 2026-10",
+    "clinic day rolls, month does not"
+  ]
+}
