@@ -1,0 +1,27 @@
+{
+  "pack": 25,
+  "date": "2026-10-06",
+  "weekday": "Tuesday",
+  "isoWeek": "2026-W41",
+  "voice": "Trailer Guy",
+  "rails": "punch-up only. no identity roasts. no slurs. everybody gets roasted. nobody gets destroyed.",
+  "bit": "It's Tuesday and the folder is still the same week. Twenty-five packs. The Monday autopsy is still warm. I brought a new toilet joke to a locked door.",
+  "target": "Jesse, the comic who thinks a new day is a new week",
+  "setup": "He showed up on Tuesday with a fresh bit and the same weekly key.",
+  "surprise": "The door did not reset because the calendar square did.",
+  "punch": "Tuesday opened and I still owed Monday's silence.",
+  "tags": ["New day, same week, same toilets.", "The open mic is tonight. The autopsy is not."],
+  "button": "Sacramento has a Tuesday. The mic doesn't double the autopsy.",
+  "verdict": "Died as a calendar. Make Tuesday the comic who counted the day and ignored the lock.",
+  "fixedVersions": [
+    "Tuesday opened and I still owed Monday's silence.",
+    "New day. Same week. I still haven't bombed in public."
+  ],
+  "canonicalSample": {
+    "bit": "I clean toilets to fund a comedy app.",
+    "cut": "to fund",
+    "try": "I scrub toilets so a robot can make me funny.",
+    "tag": "The robot's funnier than me. That's not a business plan, that's a hostage situation.",
+    "button": "Roger still hasn't called back."
+  }
+}
