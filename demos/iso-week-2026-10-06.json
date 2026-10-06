@@ -1,0 +1,50 @@
+{
+  "label": "Tuesday hold — autopsy does not flip",
+  "serverClock": "UTC",
+  "room": "America/Los_Angeles is not the key",
+  "cases": [
+    {
+      "at": "2026-10-05T16:20:00Z",
+      "local": "Monday 9:20 AM PDT",
+      "isoWeek": "2026-W41",
+      "month": "2026-10",
+      "day": "2026-10-05"
+    },
+    {
+      "at": "2026-10-06T00:00:00Z",
+      "local": "Monday 5:00 PM PDT",
+      "isoWeek": "2026-W41",
+      "month": "2026-10",
+      "day": "2026-10-06",
+      "note": "UTC midnight rolls the clinic day. Not the autopsy."
+    },
+    {
+      "at": "2026-10-06T07:01:00Z",
+      "local": "Tuesday 12:01 AM PDT",
+      "isoWeek": "2026-W41",
+      "month": "2026-10",
+      "day": "2026-10-06"
+    },
+    {
+      "at": "2026-10-06T16:20:00Z",
+      "local": "Tuesday 9:20 AM PDT",
+      "isoWeek": "2026-W41",
+      "month": "2026-10",
+      "day": "2026-10-06"
+    },
+    {
+      "at": "2026-10-12T00:00:00Z",
+      "local": "Sunday 5:00 PM PDT",
+      "isoWeek": "2026-W42",
+      "month": "2026-10",
+      "day": "2026-10-12",
+      "note": "Next autopsy key. Not today."
+    }
+  ],
+  "acceptance": [
+    "Monday W41 autopsy spent must 429 on Tuesday",
+    "Unused W41 autopsy may be spent once on Tuesday, then 429",
+    "Roast bumped Oct 5 still counts against 2026-10 on Oct 6",
+    "Clinic lines from 2026-10-05 do not reduce 2026-10-06"
+  ]
+}
