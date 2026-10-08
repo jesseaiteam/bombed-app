@@ -1,0 +1,25 @@
+{
+  "label": "Thursday hold — 2026-W41 still",
+  "nowUtc": "2026-10-08T16:16:00Z",
+  "localNote": "Thursday 9:16 AM PDT is 16:16 UTC. Still W41. Do not key the week off America/Los_Angeles.",
+  "expected": {
+    "isoWeek": "2026-W41",
+    "month": "2026-10",
+    "day": "2026-10-08",
+    "nextAutopsyResetUtc": "2026-10-12T00:00:00Z",
+    "nextIsoWeek": "2026-W42"
+  },
+  "alsoStillW41": [
+    "2026-10-05T16:20:00Z",
+    "2026-10-06T16:20:00Z",
+    "2026-10-07T16:20:00Z",
+    "2026-10-08T07:01:00Z"
+  ],
+  "gap": "No Oct 7 pack. Missing day does not clear autopsy:{userId}:2026-W41.",
+  "acceptance": [
+    "autopsy marked Monday W41 must 429 on Thursday with Thursday copy",
+    "unused W41 may be spent once on Thursday, then 429",
+    "roast bumped Oct 5 through Oct 8 share roast:{userId}:2026-10",
+    "clinic used Oct 6 or Oct 7 must not count against 2026-10-08"
+  ]
+}
