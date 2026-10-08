@@ -1,0 +1,26 @@
+{
+  "id": "autopsy-2026-10-08",
+  "pack": 26,
+  "voice": "trailer_guy",
+  "rails": "punch-up only. no identity roasts. no slurs. everybody gets roasted. nobody gets destroyed.",
+  "bit": "It's Thursday and I skipped Wednesday like the week would forget me. Twenty-six packs. The Monday autopsy is still warm. I brought a new toilet joke to a door that has been locked since the open mic sign-up sheet.",
+  "target": "the comic who thinks a skipped day is a new week",
+  "setup": "Thursday after a ghosted Wednesday, still inside 2026-W41",
+  "surprise": "The folder did not miss you. The lock did not reset because you didn't show.",
+  "punch": "Thursday opened and I still owed Monday's silence.",
+  "tags": ["Skipped day, same week, same toilets."],
+  "button": "Sacramento has a Thursday. The mic doesn't double the autopsy because you hid.",
+  "verdict": "Died as a calendar gap. Make Thursday the comic who counted the missing day and ignored the lock.",
+  "fixedVersions": [
+    "Thursday opened and I still owed Monday's silence.",
+    "I skipped Wednesday. The week did not skip me.",
+    "New day. Same week. I still haven't bombed in public."
+  ],
+  "canonicalBit": {
+    "bit": "I clean toilets to fund a comedy app.",
+    "cut": "to fund",
+    "try": "I scrub toilets so a robot can make me funny.",
+    "tag": "The robot's funnier than me. That's not a business plan, that's a hostage situation.",
+    "button": "Roger still hasn't called back."
+  }
+}
