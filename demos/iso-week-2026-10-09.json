@@ -1,0 +1,12 @@
+{
+  "pack": "2026-10-09",
+  "label": "Friday hold",
+  "serverClock": "UTC",
+  "now": "2026-10-09T16:16:00Z",
+  "localTrap": "Friday 12:01 AM PDT is 2026-10-09 07:01 UTC and still 2026-W41",
+  "isoWeek": "2026-W41",
+  "monthKey": "2026-10",
+  "dayKey": "2026-10-09",
+  "nextAutopsyReset": "2026-10-12T00:00:00Z",
+  "nextWeek": "2026-W42"
+}
