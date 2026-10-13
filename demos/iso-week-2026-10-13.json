@@ -1,0 +1,13 @@
+{
+  "date": "2026-10-13",
+  "weekday": "Tuesday",
+  "isoWeek": "2026-W42",
+  "note": "Tuesday holds the Monday-opened W42 autopsy key. Not a new week.",
+  "expected": {
+    "autopsyKey": "autopsy:{userId}:2026-W42",
+    "roastKey": "roast:{userId}:2026-10",
+    "clinicKey": "clinic:{userId}:2026-10-13",
+    "spentMondayBlocksTuesday": true,
+    "unusedSucceedsOnceThen429": true
+  }
+}
