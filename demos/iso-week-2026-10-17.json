@@ -1,0 +1,7 @@
+{
+  "date": "2026-10-17",
+  "weekday": "Saturday",
+  "isoWeek": "2026-W42",
+  "assert": "isoWeekKey(2026-10-17) === '2026-W42' && isoWeekKey(2026-10-12) === '2026-W42' && isoWeekKey(2026-10-19) === '2026-W43'",
+  "note": "Saturday holds the W42 autopsy lock. Friday already held it. Monday Oct 19 opens W43. Roast month stays 2026-10. Clinic day rolls."
+}
