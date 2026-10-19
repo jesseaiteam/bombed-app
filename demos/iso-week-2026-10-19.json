@@ -1,0 +1,14 @@
+{
+  "date": "2026-10-19",
+  "day": "Monday",
+  "isoWeek": "2026-W43",
+  "previousWeek": "2026-W42",
+  "month": "2026-10",
+  "notes": "Monday opens the new week. Autopsy resets. Roast month continues. Clinic day is fresh. Server clock is UTC.",
+  "acceptance": [
+    "W42 autopsy does not block W43",
+    "second W43 autopsy returns 429",
+    "October roast counter continues",
+    "Oct 18 clinic does not count against Oct 19"
+  ]
+}
